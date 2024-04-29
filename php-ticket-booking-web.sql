@@ -19,10 +19,10 @@ CREATE TABLE `user` (
   PRIMARY KEY(`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `user` (`user_id`, `username`, `first_name`, `last_name`, `email`, `password`, `activated`, `activate_token`, `account_type`) VALUES
+INSERT INTO `user` (`user_id`, `username`, `first_name`, `last_name`, `email`, `password`, `activated`, `activate_token`, `user_type`) VALUES
 (1, 'admin', 'admin', 'admin', 'admin@gmail.com', '$2y$10$ngoCTbgUgUIGes6/KnLg7e0Li.JIOQkpVGYnZ6pbPsjuiw3kYwN3G', b'1', '123456', b'1'),
-(2, 'mvmanh', 'Mai', 'Văn Mạnh', 'mvmanh@gmail.com', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm', b'1', '123456', b'0'),
-(3, 'tdt', 'Tôn', 'Đức Thắng', 'mvmanh@it.tdt.edu.vn', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm', b'1', '123456', b'0'),
+(2, 'mvmanh', N'Mai', N'Văn Mạnh', 'mvmanh@gmail.com', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm', b'1', '123456', b'0'),
+(3, 'tdt', N'Tôn', N'Đức Thắng', 'mvmanh@it.tdt.edu.vn', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm', b'1', '123456', b'0'),
 (4, 'luffy', 'Luffy', 'Monkey', 'luffymonkey@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi', b'1', '123456', b'0'),
 (5, 'izuku', 'Izuku', 'Midoriya', 'izuku@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi', b'1', '123456', b'0');
 
@@ -63,10 +63,10 @@ CREATE TABLE `film` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `film` (`film_id`, `name`, `runtime`, `publish_year`, `director`, `description`, `image`) VALUES
-(1, 'The Lion King', 118, 2019, 'Rob Minkoff, Roger Allers', 'Chú sư tử con Simba, con trai của Mufasa, vị vua đang thống trị thế giới hoang dã ở đây. Em trai của Mufasa là Scar thèm muốn ngai vàng và âm mưu loại bỏ Mufasa và Simba, để hắn có thể trở thành vua. Simba đánh bại Scar tiếp quản vương quốc trở thành vua sư tử', 'the-lion-king.jpeg'),
-(2, 'Doctor Strange', 115, 2016, 'Scott Derrickson', 'Stephen Strange, một bác sĩ phẫu thuật tài ba nhưng kiêu căng và tự cao. Sau một tai nạn giao thông nghiêm trọng khiến tay anh bị thương nặng, Stephen tìm đến ngôi chùa Ấn Độ và học được nghệ thuật phép thuật từ Người Cổ Đại. Anh dần khám phá ra thế giới siêu nhiên và sức mạnh của thế giới này. Khi thế giới đối diện nguy cơ, Stephen Strange trở thành Doctor Strange và sử dụng những kỹ năng mới để bảo vệ thế giới khỏi những mối đe dọa siêu nhiên.', 'doctor-strange.jpeg'),
-(3, 'Godzilla x Kong: The New Empire', 125, 2024, 'Adam Wingard', 'Kong và Godzilla - hai sinh vật vĩ đại huyền thoại, hai kẻ thủ truyền kiếp sẽ cùng bắt tay thực thi một sứ mệnh chung mang tính sống còn để bảo vệ nhân loại, và trận chiến gắn kết chúng với loài người mãi mãi sẽ bắt đầu.', 'kong-x-godzila-the-new-empire.jpeg'),
-(4, 'Kung Fu Panda 4', 94, 2024, 'Mike Mitchell', 'Sau khi Po được chọn trở thành Thủ lĩnh tinh thần của Thung lũng Bình Yên, Po cần tìm và huấn luyện một Chiến binh Rồng mới, trong khi đó một mụ phù thủy độc ác lên kế hoạch triệu hồi lại tất cả những kẻ phản diện mà Po đã đánh bại về cõi linh hồn.', 'kung-fu-panda-4.jpeg');
+(1, 'The Lion King', 118, 2019, 'Rob Minkoff, Roger Allers', N'Chú sư tử con Simba, con trai của Mufasa, vị vua đang thống trị thế giới hoang dã ở đây. Em trai của Mufasa là Scar thèm muốn ngai vàng và âm mưu loại bỏ Mufasa và Simba, để hắn có thể trở thành vua. Simba đánh bại Scar tiếp quản vương quốc trở thành vua sư tử', 'the-lion-king.jpeg'),
+(2, 'Doctor Strange', 115, 2016, 'Scott Derrickson', N'Stephen Strange, một bác sĩ phẫu thuật tài ba nhưng kiêu căng và tự cao. Sau một tai nạn giao thông nghiêm trọng khiến tay anh bị thương nặng, Stephen tìm đến ngôi chùa Ấn Độ và học được nghệ thuật phép thuật từ Người Cổ Đại. Anh dần khám phá ra thế giới siêu nhiên và sức mạnh của thế giới này. Khi thế giới đối diện nguy cơ, Stephen Strange trở thành Doctor Strange và sử dụng những kỹ năng mới để bảo vệ thế giới khỏi những mối đe dọa siêu nhiên.', 'doctor-strange.jpeg'),
+(3, 'Godzilla x Kong: The New Empire', 125, 2024, 'Adam Wingard', N'Kong và Godzilla - hai sinh vật vĩ đại huyền thoại, hai kẻ thủ truyền kiếp sẽ cùng bắt tay thực thi một sứ mệnh chung mang tính sống còn để bảo vệ nhân loại, và trận chiến gắn kết chúng với loài người mãi mãi sẽ bắt đầu.', 'kong-x-godzila-the-new-empire.jpeg'),
+(4, 'Kung Fu Panda 4', 94, 2024, 'Mike Mitchell', N'Sau khi Po được chọn trở thành Thủ lĩnh tinh thần của Thung lũng Bình Yên, Po cần tìm và huấn luyện một Chiến binh Rồng mới, trong khi đó một mụ phù thủy độc ác lên kế hoạch triệu hồi lại tất cả những kẻ phản diện mà Po đã đánh bại về cõi linh hồn.', 'kung-fu-panda-4.jpeg');
   
 ALTER TABLE `film`
   MODIFY `film_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `screen` (
   PRIMARY KEY (`screen_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5;
 
-INSERT INTO `screen` (`screen_id`, `theater_id`, `screen_name`, `no_seat`, `charge`) VALUES
+INSERT INTO `screen` (`screen_id`, `theater_id`, `screen_name`, `no_seats`, `charge`) VALUES
 (1, 3, 'Screen 1', 100, 70),
 (2, 3, 'Screen 2', 150, 60),
 (3, 4, 'Screen 1', 200, 75),
@@ -219,25 +219,25 @@ CREATE TABLE IF NOT EXISTS `theater` (
   `theater_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `area` varchar(50) NOT NULL,
-  `distritct` varchar(50) NOT NULL,
+  `district` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`theater_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 INSERT INTO `theater` (`theater_id`, `name`, `area`, `district`, `address`) VALUES
-(2, 'CGV Vincom Đồng Khởi', 'Hồ Chí Minh', 'Quận 1', '72 Đường Lê Thánh Tôn'),
-(3, 'CGV Vạn Hạnh Mall', 'Hồ Chí Minh', 'Quận 10', 'Tầng 6 Vạn Hạnh Mall, 11 Đường Sư Vạn Hạnh'),
-(4, 'CGV Vivo City', 'Hồ Chí Minh', 'Quận 7', 'Tầng 5 TTTM Vivo City, 1058 Đường Nguyễn Văn Linh'),
-(5, 'CGV Parkson Đồng Khởi', 'Hồ Chí Minh', 'Quận 1', 'Tầng 5 Parson Đồng Khởi'),
-(6, 'CGV Lý Chính Thắng', 'Hồ Chí Minh', 'Quận 3', '83 Đường Lý Chính Thằng'),
-(7, 'CGV Pearl Plaza', 'Hồ Chí Minh', 'Quận Bình Thạnh', '561A Đường Điện Biên Phủ'),
-(8, 'CGV Thảo Điền Pearl', 'Hồ Chí Minh', 'Quận 2', '12 Đường Quốc Hương'),
-(9, 'CGV Crescent Mall', 'Hồ Chí Minh', 'Quận 7', 'Cresent Mall Đường Nguyễn Văn Linh'),
-(10, 'CGV Vincom Thủ Đức', 'Hồ Chí Minh', 'Quận Thủ Đức, Prakasam Road, George Town, Chennai, Tamil Nadu, India', 'Tầng 6 TTTM Giga Mall, 240, 242 Phạm Văn Đồng'),
-(11, 'CGV Hùng Vương Plaza', 'Hồ Chí Minh', 'Quận 5', 'Parkson Hùng Vương'),
-(12, 'CGV Pandora City', 'Hồ Chí Minh', 'Quận Tân Phú', 'Pandora City, 1/1 Đường Trường Chinh'),
-(13, 'CGV Aeon Tân Phú', 'Hồ Chí Minh', 'Quận Tân Phú', 'Aeon Mall, 30 Đường Tân Phú'),
-(14, 'CGV Vincom Center Landmark 81', 'Hồ Chí Minh', 'Quận Bình Thạnh', 'Tầng B1, TTTM Vincom Center Landmark 81, 772 Điện Biên Phủ');
+(2, N'CGV Vincom Đồng Khởi', N'Hồ Chí Minh', N'Quận 1', N'72 Đường Lê Thánh Tôn'),
+(3, N'CGV Vạn Hạnh Mall', N'Hồ Chí Minh', N'Quận 10', N'Tầng 6 Vạn Hạnh Mall, 11 Đường Sư Vạn Hạnh'),
+(4, N'CGV Vivo City', N'Hồ Chí Minh', N'Quận 7', N'Tầng 5 TTTM Vivo City, 1058 Đường Nguyễn Văn Linh'),
+(5, N'CGV Parkson Đồng Khởi', N'Hồ Chí Minh', N'Quận 1', N'Tầng 5 Parson Đồng Khởi'),
+(6, N'CGV Lý Chính Thắng', N'Hồ Chí Minh', N'Quận 3', N'83 Đường Lý Chính Thằng'),
+(7, N'CGV Pearl Plaza', N'Hồ Chí Minh', N'Quận Bình Thạnh', N'561A Đường Điện Biên Phủ'),
+(8, N'CGV Thảo Điền Pearl', N'Hồ Chí Minh', N'Quận 2', N'12 Đường Quốc Hương'),
+(9, N'CGV Crescent Mall', N'Hồ Chí Minh', N'Quận 7', N'Cresent Mall Đường Nguyễn Văn Linh'),
+(10, N'CGV Vincom Thủ Đức', N'Hồ Chí Minh', N'Quận Thủ Đức', N'Tầng 6 TTTM Giga Mall, 240, 242 Phạm Văn Đồng'),
+(11, N'CGV Hùng Vương Plaza', N'Hồ Chí Minh', N'Quận 5', N'Parkson Hùng Vương'),
+(12, N'CGV Pandora City', N'Hồ Chí Minh', N'Quận Tân Phú', N'Pandora City, 1/1 Đường Trường Chinh'),
+(13, N'CGV Aeon Tân Phú', N'Hồ Chí Minh', N'Quận Tân Phú', N'Aeon Mall, 30 Đường Tân Phú'),
+(14, N'CGV Vincom Center Landmark 81', N'Hồ Chí Minh', N'Quận Bình Thạnh', N'Tầng B1, TTTM Vincom Center Landmark 81, 772 Điện Biên Phủ');
 
 DROP TABLE IF EXISTS `film_ticket`;
 CREATE TABLE `film_showtime` (

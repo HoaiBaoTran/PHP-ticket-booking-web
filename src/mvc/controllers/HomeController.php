@@ -7,6 +7,11 @@ class HomeController extends Controller
         $filmModel->getAllFilms();
     }
 
+    function login()
+    {
+        $this->view("../views/Login.php");
+    }
+
     function Show($a, $b)
     {
         // GỌi model

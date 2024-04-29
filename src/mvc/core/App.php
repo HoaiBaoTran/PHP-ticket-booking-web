@@ -1,8 +1,8 @@
 <?php
 class App
 {
-    protected $controller = "Home";
-    protected $action = "SayHi";
+    protected $controller = "home";
+    protected $action = "index";
     protected $params = [];
 
     function __construct()
@@ -12,11 +12,12 @@ class App
         // Xử lý Controller
         if (!empty($arr)) {
             if (file_exists("./mvc/controllers/" . $arr[0] . "Controller.php")) {
-                $this->controller = $arr[0];
+                $this->controller = ucfirst($arr[0]);
                 unset($arr[0]);
             }
         }
         require_once("./mvc/controllers/" . $this->controller . "Controller.php");
+        $this->controller = $this->controller . "Controller";
         $this->controller = new $this->controller;
 
         // Xử lý Action
