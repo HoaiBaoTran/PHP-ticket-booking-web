@@ -1,37 +1,43 @@
-const getAllUsers = () => {
-  const url = 'localhost:8080/api/user'
-  const data = {
-    'action': 'getAllUsers'
+const getAllUsers = async () => {
+  const url = 'http://localhost:8080/api/user/-1'
+  const postData = {
+    action: 'getAllUsers'
   }
-  $.post(url, data)
-    .done(function (data) {
-      console.log(data)
-      return data
-    })
-    .fail(function (xhr, status, err) {
-      console.log('xhr: ', xhr)
-      console.log('status: ', status)
-      console.log('error: ', err)
-      return err
-    })
-
-};
-
-const getAllManagers = () => {
-  const url = `../../../mvc/views/admin/handle-api.php`;
-  $.ajax({
-    type: 'POST',
+  let dataRes
+  await $.ajax({
     url: url,
-    data: {
-      action: 'getAllManagers',
+    type: 'POST',
+    data: postData,
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
     },
-    success: function (response) {
-      return response;
-    },
-    error: function (xhr, status, err) {
-      return err;
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
     }
   })
+  return dataRes
+};
+
+const getAllManagers = async () => {
+  const url = 'http://localhost:8080/api/manager'
+  const postData = {
+    action: 'getAllManagers'
+  }
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'POST',
+    data: postData,
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
 const changePassword = async (url = "../..", id, newPass, oldPass) => {
@@ -84,13 +90,25 @@ const getCustomerByEmail = async (url, email) => {
   return datatorender;
 };
 
-const getUserById = async (url, id) => {
-  const urls = `${url}/Controller/User/ajax.php?action=getUserById&id=${id}`;
-  const data = await fetch(urls, {
-    method: "GET",
-  });
-  const datatorender = await data.json();
-  return datatorender;
+const getUserById = async (id) => {
+  const url = `http://localhost:8080/api/user/${id}`
+  const postData = {
+    action: 'getUserById'
+  }
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'POST',
+    data: postData,
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
 const updateManager = async (
@@ -117,13 +135,15 @@ const updateManager = async (
   return datatorender;
 };
 
-const addManager = async (
-  url = "../..",
+const addUser = async (
   email,
+  username,
   password,
-  fullname,
+  fistName,
+  lastName,
   phone,
-  address
+  address,
+  userType,
 ) => {
   const urls = `${url}/api/v1/manager`;
   const data = await fetch(urls, {

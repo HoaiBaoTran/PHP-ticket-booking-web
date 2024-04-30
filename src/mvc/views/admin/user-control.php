@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5CT_WebMovie</title>
+    <title>HoaiBao_WebMovie</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -31,7 +31,7 @@
                     <a href="/api/v1/export" style="color: white;">In danh sách</a>
                 </button>
                 <button class="btn-main content-type-normal" data-bs-toggle="modal" data-bs-target="#ModalAddUser">
-                    + Thêm form
+                    + Thêm người dùng
                 </button>
             </div>
         </div>
@@ -45,7 +45,7 @@
               top: 50%;
               transform: translateY(-50%);
             " />
-                <input type="search" class="form-control rounded" placeholder="Tìm kiếm theo id" aria-label="Search" aria-describedby="search-addon" />
+                <input class="input-place input" type="search" class="form-control rounded" placeholder="Tìm kiếm theo id" aria-label="Search" aria-describedby="search-addon" />
             </div>
 
             <button class="btn-main content-type-normal" id="btn-search">
@@ -90,25 +90,7 @@
                     </tr>
                 </thead>
                 <tbody id="table-content-tbody">
-                    <script>
-                        // const response = <?= $data["Users"] ?>;
-                        // const users = response.data;
-                        // users.map(user => {
-                        //     const row =
-                        //         `
-                        //         <tr>
-                        //             <td>${user.user_id}</td>
-                        //             <td>${user.first_name + user.last_name}</td>
-                        //             <td>${user.email}</td>
-                        //             <td>${user.phone_number}</td>
-                        //             <td>${user.password}</td>
-                        //             <td>${user.address}</td>
-                        //             <td>${user.user_type == 0 ? "Khách hàng" : "Quản lý"}</td>
-                        //         </tr>
-                        //     `
-                        //     $('#table-content-tbody').append(row);
-                        // })
-                    </script>
+
                 </tbody>
             </table>
         </div>
@@ -116,7 +98,7 @@
 
     <div class="sidebar-container">
         <div class="logo-container">
-            <p class="logo-heading">5CT</p>
+            <p class="logo-heading">HB</p>
         </div>
         <a href="/admin/user">
             <div class="item-container">
@@ -242,26 +224,33 @@
                                 <div class="col-6">
                                     <span class="form-title"> Loại </span>
                                     <select class="form-select type" aria-label="type" aria-describedby="addon-wrapping">
-                                        <!-- <option value="1">Khách hàng</option> -->
-                                        <option value="2">Quản lý</option>
+                                        <option value="0">Khách hàng</option>
+                                        <option value="1">Quản lý</option>
                                     </select>
-                                </div>
-                                <div class="col-6">
-                                    <span class="form-title"> Họ và tên </span>
-                                    <input type="text" class="form-control fullName" aria-label="Username" aria-describedby="addon-wrapping" />
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title"> Email </span>
                                     <input type="email" class="form-control email" aria-label="email" aria-describedby="addon-wrapping" />
                                 </div>
-
                                 <div class="col-6">
-                                    <span class="form-title"> Số điện thoại </span>
-                                    <input type="text" class="form-control phone" aria-label="Username" aria-describedby="addon-wrapping" />
+                                    <span class="form-title">Tên</span>
+                                    <input type="text" class="form-control first-name" aria-label="Username" aria-describedby="addon-wrapping" />
+                                </div>
+                                <div class="col-6">
+                                    <span class="form-title">Họ</span>
+                                    <input type="text" class="form-control last-name" aria-label="Username" aria-describedby="addon-wrapping" />
+                                </div>
+                                <div class="col-6">
+                                    <span class="form-title"> Tên đăng nhập </span>
+                                    <input type="text" class="form-control username" aria-label="Username" aria-describedby="addon-wrapping" />
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title"> Mật khẩu </span>
                                     <input type="password" class="form-control password" aria-label="Username" aria-describedby="addon-wrapping" id="password" />
+                                </div>
+                                <div class="col-6">
+                                    <span class="form-title"> Số điện thoại </span>
+                                    <input type="text" class="form-control phone" aria-label="Username" aria-describedby="addon-wrapping" />
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title"> Địa chỉ </span>

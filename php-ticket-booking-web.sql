@@ -25,13 +25,19 @@ INSERT INTO `user` (`user_id`, `username`, `first_name`, `last_name`, `email`, `
 (1, 'admin', 'admin', 'admin', 'admin@gmail.com', '$2y$10$ngoCTbgUgUIGes6/KnLg7e0Li.JIOQkpVGYnZ6pbPsjuiw3kYwN3G','09876543210', N'Quận 7', b'1', '123456', b'1'),
 (2, 'mvmanh', N'Mai', N'Văn Mạnh', 'mvmanh@gmail.com', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm','09876543210', N'Quận 7', b'1', '123456', b'0'),
 (3, 'tdt', N'Tôn', N'Đức Thắng', 'mvmanh@it.tdt.edu.vn', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm','0975839562', N'Quận 4', b'1', '123456', b'0'),
-(4, 'luffy', 'Luffy', 'Monkey', 'luffymonkey@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0654294738', N'Biển Đông', b'1', '123456', b'0'),
-(5, 'izuku', 'Izuku', 'Midoriya', 'izuku@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0123456678', N'Học viện anh hùng', b'1', '123456', b'0');
+(4, 'luffy', 'Luffy', 'Monkey', 'luffymonkey@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0654294738', N'Biển Đông', b'1', '123456', b'1'),
+(5, 'izuku', 'Izuku', 'Midoriya', 'izuku@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0123456678', N'Học viện anh hùng', b'1', '123456', b'1'),
+(6, 'natsu', 'Natsu', 'Dragneel', 'natsudragneel@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0175501675', N'Tartarus', b'1', '123456', b'0'),
+(7, 'ichigo', N'Ichigo', N'Kurosaki', 'ichigokurosaki@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0487620356', N'Hollow World', b'1', '123456', b'0'),
+(8, 'bakugo', N'Bakugo', N'Katsuki', 'bakugokatsuki@it.tdt.edu.vn', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0126583916', N'Học viện siêu anh hùng', b'1', '123456', b'0'),
+(9, 'zoro', 'Zoro', 'Roronoa', 'zorororonoa@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0536442182', N'Biển Đông', b'1', '123456', b'0'),
+(10, 'law', 'Law', 'Trafalgar', 'lawtrafalgar@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0341096666', N'Heart Crew', b'1', '123456', b'1'),
+(11, 'messi', 'Messi', 'Lionel', 'messilionel@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0341096666', N'Argentina', b'1', '123456', b'0');
 
 ALTER TABLE `user`
   ADD UNIQUE KEY `username`(`username`),
   ADD UNIQUE KEY `email`(`email`),
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 DROP TABLE IF EXISTS `type`;
 CREATE TABLE `type` (

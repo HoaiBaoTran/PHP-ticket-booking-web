@@ -50,34 +50,41 @@ $(document).ready(() => {
   });
 
   $(".all-user").click(() => loadAllUser().then(() => showData(currentData)));
-  $(".customer").click(() => loadCustomer().then(() => showData(currentData)));
+  $(".customer").click(() => loadUser().then(() => showData(currentData)));
   $(".manager").click(() => loadManager().then(() => showData(currentData)));
 
   $("#btn-search").click(() => {
-    let query = $(".input-place input").val().trim().toUpperCase();
-    currentData = allData.filter((element) =>
-      element.managerId
-        ? element.managerId.search(query) != -1
-        : element.customerId.search(query) != -1
+    let queryID = $(".input-place.input").val()
+    $(".input-place.input").val('')
+
+    currentData = allData.filter((element) => {
+      if (queryID == element['user_id']) {
+        currentData = []
+        currentData.push(element)
+        $(".item-choosing-block .divider-mini").remove();
+        $(".search-result").parent().append("<div class=divider-mini></div>");
+        showData(currentData);
+      }
+    }
     );
-    $(".item-choosing-block .divider-mini").remove();
-    $(".search-result").parent().append("<div class=divider-mini></div>");
-    showData();
+
   });
 
-  $("#ModalAddUser .type").change(() => {
-    let type = $("#ModalAddUser .type").val();
-    if (type === "1") $("#ModalAddUser .address").removeAttr("disabled");
-    else {
-      $("#ModalAddUser .address").val("");
-      $("#ModalAddUser .address").attr("disabled", true);
-    }
-  });
+  // $("#ModalAddUser .type").change(() => {
+  //   let type = $("#ModalAddUser .type").val();
+  //   if (type === "1") $("#ModalAddUser .address").removeAttr("disabled");
+  //   else {
+  //     $("#ModalAddUser .address").val("");
+  //     $("#ModalAddUser .address").attr("disabled", true);
+  //   }
+  // });
 
   // Add form
   $("#btn-add").click(() => {
-    let fullname = $("#ModalAddUser .fullName").val().trim();
+    let firstName = $("#ModalAddUser .first-name").val().trim();
+    let lastName = $("#ModalAddUser .last-name").val().trim();
     let email = $("#ModalAddUser .email").val().trim();
+    let username = $("#ModalAddUser .username").val().trim();
     let password = $("#ModalAddUser .password").val().trim();
     let address = $("#ModalAddUser .address").val();
     let phone = $("#ModalAddUser .phone").val();
@@ -157,49 +164,45 @@ function showData(currentData) {
   for (let i = 0; i < numRow; i++) {
     table.row
       .add([
-        data[i].managerId ? data[i].managerId : data[i].customerId,
-        // i + 1,
-        data[i].fullname,
+        data[i]['user_id'],
+        data[i]['first_name'] + ' ' + data[i]['last_name'],
         data[i].email,
-        data[i].phone,
+        data[i]['phone_number'],
         data[i].password,
         data[i].address ? data[i].address : "",
-        data[i].managerId ? "Quản lý" : "Khách hàng",
+        data[i]['user_type'] == 1 ? "Quản lý" : "Khách hàng",
       ])
       .draw();
   }
 }
 
-function loadAllUser() {
+async function loadAllUser() {
   currentData = [];
   let page = 1;
   let data;
   do {
-    data = getAllUsers();
-    console.log(data)
+    data = await getAllUsers();
     currentData.push(...data.data);
     page++;
   } while (data.data.length == 0);
   page = 1;
 
   do {
-    data = getAllManagers();
+    data = await getAllManagers();
     currentData.push(...data.data);
     page++;
   } while (data.data.length == 0);
   allData = [...currentData];
-  console.log();
 }
 
-async function loadCustomer() {
+async function loadUser() {
   currentData = [];
   let page = 1;
   let data;
-  data = await getAllCustomer("../..", page);
+  data = await getAllUsers();
   for (let i = 0; i < data.data.length; i++) {
     currentData.push(data.data[i]);
   }
-  console.log(currentData);
   return currentData;
 }
 
@@ -207,9 +210,8 @@ async function loadManager() {
   currentData = [];
   let page = 1;
   let data;
-  data = await getAllManager("../..", page);
+  data = await getAllManagers();
   currentData.push(...data.data);
-  console.log(currentData);
   return currentData;
 }
 
