@@ -3,11 +3,11 @@ class AdminController extends Controller
 {
     function index()
     {
-        $filmModel = $this->model("FilmModel");
+        $userModel = $this->model("UserModel");
 
-        $this->view("admin/user-control");
-
-        $filmModel->getAllFilms();
+        $this->view("admin/user-control", [
+            'Users' => $userModel->getAllUsers()
+        ]);
     }
 
     function film()
@@ -15,6 +15,42 @@ class AdminController extends Controller
         $filmModel = $this->model("FilmModel");
 
         $this->view("admin/film-control");
+
+        $filmModel->getAllFilms();
+    }
+
+    function history()
+    {
+        $filmModel = $this->model("FilmModel");
+
+        $this->view("admin/history-page");
+
+        $filmModel->getAllFilms();
+    }
+
+    function time()
+    {
+        $filmModel = $this->model("FilmModel");
+
+        $this->view("admin/time-control");
+
+        $filmModel->getAllFilms();
+    }
+
+    function combo()
+    {
+        $filmModel = $this->model("FilmModel");
+
+        $this->view("admin/combo-control");
+
+        $filmModel->getAllFilms();
+    }
+
+    function statistics()
+    {
+        $filmModel = $this->model("FilmModel");
+
+        $this->view("admin/statistics");
 
         $filmModel->getAllFilms();
     }

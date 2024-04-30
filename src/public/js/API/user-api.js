@@ -1,19 +1,37 @@
-const getAllCustomer = async (url = "../..", page) => {
-  const urls = `${url}/api/v1/customer?page=${page}`;
-  const data = await fetch(urls, {
-    method: "GET",
-  });
-  const datatorender = await data.json();
-  return datatorender;
+const getAllUsers = () => {
+  const url = 'localhost:8080/api/user'
+  const data = {
+    'action': 'getAllUsers'
+  }
+  $.post(url, data)
+    .done(function (data) {
+      console.log(data)
+      return data
+    })
+    .fail(function (xhr, status, err) {
+      console.log('xhr: ', xhr)
+      console.log('status: ', status)
+      console.log('error: ', err)
+      return err
+    })
+
 };
 
-const getAllManager = async (url = "../..", page) => {
-  const urls = `${url}/api/v1/manager`;
-  const data = await fetch(urls, {
-    method: "GET",
-  });
-  const datatorender = await data.json();
-  return datatorender;
+const getAllManagers = () => {
+  const url = `../../../mvc/views/admin/handle-api.php`;
+  $.ajax({
+    type: 'POST',
+    url: url,
+    data: {
+      action: 'getAllManagers',
+    },
+    success: function (response) {
+      return response;
+    },
+    error: function (xhr, status, err) {
+      return err;
+    }
+  })
 };
 
 const changePassword = async (url = "../..", id, newPass, oldPass) => {
@@ -136,8 +154,8 @@ const deleteManager = async (url = "../..", email) => {
 };
 
 export {
-  getAllCustomer,
-  getAllManager,
+  getAllUsers,
+  getAllManagers,
   changePassword,
   updateCustomer,
   updateManager,

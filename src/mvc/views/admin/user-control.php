@@ -14,8 +14,8 @@
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.css" rel="stylesheet" />
 
     <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.js"></script>
-    <link rel="stylesheet" href="../.././public/css/homepage.css" />
-    <link rel="stylesheet" href="../.././public/css/admin/user-control/style.css" />
+    <link rel="stylesheet" href="../../public/css/homepage.css" />
+    <link rel="stylesheet" href="../../public/css/admin/user-control/style.css" />
 </head>
 
 <body>
@@ -38,7 +38,7 @@
         <div class="divider-container"></div>
         <div class="search-place">
             <div class="input-group rounded input-place me-auto" style="margin-bottom: 0">
-                <img src="../../../images/search.svg" alt="" style="
+                <img src="../../public/images/search.svg" alt="" style="
               position: absolute;
               left: 20px;
               z-index: 10;
@@ -89,15 +89,36 @@
                         <th>Loại</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="table-content-tbody">
+                    <script>
+                        // const response = <?= $data["Users"] ?>;
+                        // const users = response.data;
+                        // users.map(user => {
+                        //     const row =
+                        //         `
+                        //         <tr>
+                        //             <td>${user.user_id}</td>
+                        //             <td>${user.first_name + user.last_name}</td>
+                        //             <td>${user.email}</td>
+                        //             <td>${user.phone_number}</td>
+                        //             <td>${user.password}</td>
+                        //             <td>${user.address}</td>
+                        //             <td>${user.user_type == 0 ? "Khách hàng" : "Quản lý"}</td>
+                        //         </tr>
+                        //     `
+                        //     $('#table-content-tbody').append(row);
+                        // })
+                    </script>
+                </tbody>
             </table>
         </div>
     </div>
+
     <div class="sidebar-container">
         <div class="logo-container">
             <p class="logo-heading">5CT</p>
         </div>
-        <a th:href="@{/admin/user-control}">
+        <a href="/admin/user">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="24" height="24" viewBox="0 0 25 24" fill="#474851" xmlns="http://www.w3.org/2000/svg" class="active">
@@ -113,7 +134,7 @@
                 <p class="item-description active">Người dùng</p>
             </div>
         </a>
-        <a th:href="@{/admin/film-control}">
+        <a href="/admin/film">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="24" height="19" viewBox="0 0 24 19" fill="#474851" xmlns="http://www.w3.org/2000/svg">
@@ -129,7 +150,7 @@
                 <p class="item-description">Danh sách phim</p>
             </div>
         </a>
-        <a th:href="@{/admin/history-page}">
+        <a href="/admin/history">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="24" height="22" viewBox="0 0 24 22" fill="#474851" xmlns="http://www.w3.org/2000/svg">
@@ -146,7 +167,7 @@
                 <p class="item-description">Lịch sử đặt vé</p>
             </div>
         </a>
-        <a th:href="@{/admin/time-control}">
+        <a href="/admin/time">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="#474851" xmlns="http://www.w3.org/2000/svg">
@@ -162,8 +183,7 @@
                 <p class="item-description">Lịch chiếu</p>
             </div>
         </a>
-
-        <a th:href="@{/admin/combo-control}">
+        <a href="/admin/combo">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="#474851" xmlns="http://www.w3.org/2000/svg">
@@ -179,7 +199,7 @@
                 <p class="item-description">Combo</p>
             </div>
         </a>
-        <a th:href="@{/admin/statistic}">
+        <a href="/admin/statistics">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="25" height="24" viewBox="0 0 25 24" fill="#474851" xmlns="http://www.w3.org/2000/svg">
@@ -332,7 +352,7 @@
             </div>
         </div>
     </div>
-    <script type="module" src="/js/AdminPage/UserControl/script.js"></script>
+    <script type="module" src="../../public/js/admin/user-control/script.js"></script>
 </body>
 
 </html>

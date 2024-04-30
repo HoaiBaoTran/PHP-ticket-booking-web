@@ -1,10 +1,10 @@
 import {
-  getAllCustomer,
-  getAllManager,
+  getAllUsers,
+  getAllManagers,
   addManager,
   updateCustomer,
   updateManager,
-} from "../../API/UserAPI.js";
+} from "../../API/user-api.js";
 import { XORDecrypt } from "../../Util/EncryptXOR.js";
 import { RegisterAPI } from "../../API/LoginAPI.js";
 
@@ -170,20 +170,20 @@ function showData(currentData) {
   }
 }
 
-async function loadAllUser() {
+function loadAllUser() {
   currentData = [];
   let page = 1;
   let data;
   do {
-    data = await getAllCustomer("../..", page);
-    // console.log(data)
+    data = getAllUsers();
+    console.log(data)
     currentData.push(...data.data);
     page++;
   } while (data.data.length == 0);
   page = 1;
 
   do {
-    data = await getAllManager("../..", page);
+    data = getAllManagers();
     currentData.push(...data.data);
     page++;
   } while (data.data.length == 0);

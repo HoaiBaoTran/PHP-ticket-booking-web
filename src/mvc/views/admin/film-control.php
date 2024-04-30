@@ -122,7 +122,7 @@
         <div class="logo-container">
             <p class="logo-heading">HB</p>
         </div>
-        <a href="/admin/user-control">
+        <a href="/admin/user">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="24" height="19" viewBox="0 0 24 19" fill="#474851" xmlns="http://www.w3.org/2000/svg">
@@ -138,7 +138,7 @@
                 <p class="item-description active">Người dùng</p>
             </div>
         </a>
-        <a href="/admin/film-control">
+        <a href="/admin/film">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="24" height="24" viewBox="0 0 25 24" fill="#474851" xmlns="http://www.w3.org/2000/svg" class="active">
@@ -155,7 +155,7 @@
                 <p class="item-description">Danh sách phim</p>
             </div>
         </a>
-        <a href="/admin/history-page">
+        <a href="/admin/history">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="24" height="22" viewBox="0 0 24 22" fill="#474851" xmlns="http://www.w3.org/2000/svg">
@@ -172,7 +172,7 @@
                 <p class="item-description">Lịch sử đặt vé</p>
             </div>
         </a>
-        <a href="/admin/time-control">
+        <a href="/admin/time">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="#474851" xmlns="http://www.w3.org/2000/svg">
@@ -188,8 +188,7 @@
                 <p class="item-description">Lịch chiếu</p>
             </div>
         </a>
-
-        <a href="/admin/combo-control">
+        <a href="/admin/combo">
             <div class="item-container">
                 <span class="item-icon">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="#474851" xmlns="http://www.w3.org/2000/svg">
@@ -411,7 +410,7 @@
             </div>
         </div>
     </div>
-    <script type="module" src="/js/AdminPage/FilmControl/script.js"></script>
+    <script type="text/html" src="../../public/js/admin/film-control/script.js"></script>
 </body>
 
 </html>

@@ -13,18 +13,20 @@ CREATE TABLE `user` (
   `last_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `phone_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `activated` bit(1) DEFAULT (false),
   `user_type` bit(1) DEFAULT (false),
   `activate_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY(`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `user` (`user_id`, `username`, `first_name`, `last_name`, `email`, `password`, `activated`, `activate_token`, `user_type`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin@gmail.com', '$2y$10$ngoCTbgUgUIGes6/KnLg7e0Li.JIOQkpVGYnZ6pbPsjuiw3kYwN3G', b'1', '123456', b'1'),
-(2, 'mvmanh', N'Mai', N'Văn Mạnh', 'mvmanh@gmail.com', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm', b'1', '123456', b'0'),
-(3, 'tdt', N'Tôn', N'Đức Thắng', 'mvmanh@it.tdt.edu.vn', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm', b'1', '123456', b'0'),
-(4, 'luffy', 'Luffy', 'Monkey', 'luffymonkey@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi', b'1', '123456', b'0'),
-(5, 'izuku', 'Izuku', 'Midoriya', 'izuku@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi', b'1', '123456', b'0');
+INSERT INTO `user` (`user_id`, `username`, `first_name`, `last_name`, `email`, `password`, `phone_number`, `address`, `activated`, `activate_token`, `user_type`) VALUES
+(1, 'admin', 'admin', 'admin', 'admin@gmail.com', '$2y$10$ngoCTbgUgUIGes6/KnLg7e0Li.JIOQkpVGYnZ6pbPsjuiw3kYwN3G','09876543210', N'Quận 7', b'1', '123456', b'1'),
+(2, 'mvmanh', N'Mai', N'Văn Mạnh', 'mvmanh@gmail.com', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm','09876543210', N'Quận 7', b'1', '123456', b'0'),
+(3, 'tdt', N'Tôn', N'Đức Thắng', 'mvmanh@it.tdt.edu.vn', '$2y$10$UA6d8dqFhh5T1WWWNZGeDetmVrMw8rGwndxxQijdKfBdte8z4l9wm','0975839562', N'Quận 4', b'1', '123456', b'0'),
+(4, 'luffy', 'Luffy', 'Monkey', 'luffymonkey@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0654294738', N'Biển Đông', b'1', '123456', b'0'),
+(5, 'izuku', 'Izuku', 'Midoriya', 'izuku@gmail.com', '$2y$10$v3jh3KOUv0t7MmLYyYLlaOLRfEUS.lwKJ4kFVB4L4z9PYJ8XvIrRi','0123456678', N'Học viện anh hùng', b'1', '123456', b'0');
 
 ALTER TABLE `user`
   ADD UNIQUE KEY `username`(`username`),
