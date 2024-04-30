@@ -87,6 +87,7 @@
                         <th>Mật khẩu</th>
                         <th>Địa chỉ</th>
                         <th>Loại</th>
+                        <th>Xóa</th>
                     </tr>
                 </thead>
                 <tbody id="table-content-tbody">
@@ -288,9 +289,9 @@
                             <div class="row gy-4 gx-5">
                                 <div class="col-6">
                                     <span class="form-title"> Loại </span>
-                                    <select class="form-select type" aria-label="type" aria-describedby="addon-wrapping" disabled>
-                                        <option value="1">Khách hàng</option>
-                                        <option value="2">Quản lý</option>
+                                    <select class="form-select type" aria-label="type" aria-describedby="addon-wrapping">
+                                        <option value="0">Khách hàng</option>
+                                        <option value="1">Quản lý</option>
                                     </select>
                                 </div>
                                 <div class="col-6">
@@ -298,8 +299,12 @@
                                     <input type="text" class="form-control id" aria-label="Username" aria-describedby="addon-wrapping" disabled />
                                 </div>
                                 <div class="col-6">
-                                    <span class="form-title"> Họ và tên </span>
-                                    <input type="text" class="form-control fullName" aria-label="Username" aria-describedby="addon-wrapping" />
+                                    <span class="form-title">Tên</span>
+                                    <input type="text" class="form-control first-name" aria-label="Username" aria-describedby="addon-wrapping" />
+                                </div>
+                                <div class="col-6">
+                                    <span class="form-title">Họ</span>
+                                    <input type="text" class="form-control last-name" aria-label="Username" aria-describedby="addon-wrapping" />
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title"> Email </span>
@@ -341,7 +346,25 @@
             </div>
         </div>
     </div>
-    <script type="module" src="../../public/js/admin/user-control/script.js"></script>
+    <div class="modal fade" id="ModalDeleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa người dùng</h5>
+                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-white">
+                </div>
+                <div class="message"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-danger" id='btn-delete-user-modal'>Xóa</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../../public/js/admin/user-control.js"></script>
 </body>
 
 </html>

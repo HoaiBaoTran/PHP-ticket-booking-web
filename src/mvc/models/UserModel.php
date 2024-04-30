@@ -31,6 +31,26 @@ class UserModel extends DB
         return json_encode(array('status' => true, 'data' => $data));
     }
 
+    public function getUserByUsername($username)
+    {
+        $sql = "SELECT * FROM user WHERE username = :username";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bindParam('username', $username);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode(array('status' => true, 'data' => $data));
+    }
+
+    public function getUserByEmail($email)
+    {
+        $sql = "SELECT * FROM user WHERE email = :email";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bindParam('email', $email);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode(array('status' => true, 'data' => $data));
+    }
+
     public function addUser($username, $password, $firstName, $lastName, $email, $phoneNumber, $address, $userType)
     {
         $hashPassword = password_hash($password, PASSWORD_BCRYPT);
@@ -53,22 +73,33 @@ class UserModel extends DB
         return $this->getUserById($lastIdInserted);
     }
 
-    public function getFilmById($id)
+    public function updateUser($id, $password, $firstName, $lastName, $phoneNumber, $address, $userType)
     {
-        $sql = "SELECT * FROM film WHERE id = :id";
+        $hashPassword = password_hash($password, PASSWORD_BCRYPT);
+        $sql = "UPDATE `user` 
+        SET `first_name`=:first_name, `last_name`=:last_name, 
+        `password`=:password, `phone_number`=:phone_number, 
+        `address`=:address, `user_type`=:user_type
+        WHERE user_id=:user_id";
         $stmt = $this->con->prepare($sql);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam('first_name', $firstName);
+        $stmt->bindParam('last_name', $lastName);
+        $stmt->bindParam('password', $hashPassword);
+        $stmt->bindParam('phone_number', $phoneNumber);
+        $stmt->bindParam('address', $address);
+        $stmt->bindValue('user_type', (int)$userType, PDO::PARAM_INT);
+        $stmt->bindValue('user_id', $id);
         $stmt->execute();
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        return json_encode(array('status' => true, 'data' => $data));
+        return $this->getUserById($id);
     }
 
-    public function addFilm()
+    public function deleteUserById($id)
     {
-        $sql = "SELECT * FROM film";
+        $sql = "DELETE FROM user WHERE user_id = :user_id";
         $stmt = $this->con->prepare($sql);
+        $stmt->bindParam('user_id', $id);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode(array('status' => true, 'data' => $data));
+        return json_encode(array('status' => true, 'data' => $data));
     }
 }

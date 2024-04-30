@@ -47,32 +47,6 @@ const changePassword = async (url = "../..", id, newPass, oldPass) => {
   return datatorender;
 };
 
-const updateCustomer = async (
-  url = "../..",
-  id,
-  email,
-  password,
-  fullname,
-  address,
-  phone
-) => {
-  const urls = `${url}/Controller/User/ajax.php`;
-  const data = await fetch(urls, {
-    method: "PUT",
-    body: JSON.stringify({
-      action: "update_customer",
-      id: id,
-      email: email,
-      password: password,
-      fullname: fullname,
-      address: address,
-      phone: phone,
-    }),
-  });
-  const datatorender = await data.json();
-  return datatorender;
-};
-
 const getCustomerByEmail = async (url, email) => {
   const urls = `${url}/api/v1/customer?email=${email}`;
   const data = await fetch(urls, {
@@ -99,28 +73,38 @@ const getUserById = async (id) => {
   return dataRes
 };
 
-const updateManager = async (
-  url = "../..",
+const updateUser = async (
   id,
-  email,
+  userType,
   password,
-  fullname,
-  phone
+  firstName,
+  lastName,
+  phone,
+  address,
 ) => {
-  const urls = `${url}/Controller/User/ajax.php`;
-  const data = await fetch(urls, {
-    method: "PUT",
-    body: JSON.stringify({
-      action: "update_manager",
-      id: id,
-      email: email,
-      password: password,
-      fullname: fullname,
-      phone: phone,
-    }),
-  });
-  const datatorender = await data.json();
-  return datatorender;
+  const url = `http://localhost:8080/api/user/${id}`;
+  const putData = {
+    password,
+    firstName,
+    lastName,
+    phone,
+    address,
+    userType,
+  }
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'PUT',
+    data: putData,
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
 const addUser = async (
@@ -161,23 +145,31 @@ const addUser = async (
   return dataRes
 };
 
-const deleteManager = async (url = "../..", email) => {
-  const urls = `${url}/Controller/User/ajax?email=${email}.php`;
-  const data = await fetch(urls, {
-    method: "DELETE",
-  });
-  const datatorender = await data.json();
-  return datatorender;
+const deleteUser = async (id) => {
+  const url = `http://localhost:8080/api/user/${id}`
+  console.log(url)
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'DELETE',
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
 export {
   getAllUsers,
   getAllManagers,
   changePassword,
-  updateCustomer,
-  updateManager,
   addUser,
-  deleteManager,
+  updateUser,
+  deleteUser,
   getCustomerByEmail,
   getUserById,
 };

@@ -56,6 +56,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo json_encode(array('error' => 'Unknown action'));
                 break;
         }
-    } else {
     }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+    // Read the raw input
+    $data = file_get_contents('php://input');
+    // Parse the raw input into an associative array
+    parse_str($data, $putData);
+    foreach ($putData as $key => $value) {
+        if ($key == 'firstName') {
+            $firstName = $value;
+        }
+        if ($key == 'lastName') {
+            $lastName = $value;
+        }
+        if ($key == 'password') {
+            $password = $value;
+        }
+        if ($key == 'phone') {
+            $phone = $value;
+        }
+        if ($key == 'address') {
+            $address = $value;
+        }
+        if ($key == 'userType') {
+            $userType = $value;
+        }
+    }
+    echo $userModel->updateUser(
+        $id,
+        $password,
+        $firstName,
+        $lastName,
+        $phone,
+        $address,
+        $userType
+    );
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+    echo $userModel->deleteUserById($id);
 }
