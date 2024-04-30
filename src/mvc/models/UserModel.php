@@ -46,7 +46,7 @@ class UserModel extends DB
         $stmt->bindParam('email', $email);
         $stmt->bindParam('phone_number', $phoneNumber);
         $stmt->bindParam('address', $address);
-        $stmt->bindParam('user_type', $userType);
+        $stmt->bindValue('user_type', (int)$userType, PDO::PARAM_INT);
         $stmt->execute();
 
         $lastIdInserted = $this->con->lastInsertId();

@@ -1,13 +1,9 @@
 const getAllUsers = async () => {
   const url = 'http://localhost:8080/api/user/-1'
-  const postData = {
-    action: 'getAllUsers'
-  }
   let dataRes
   await $.ajax({
     url: url,
-    type: 'POST',
-    data: postData,
+    type: 'GET',
     async: false,
     success: async function (data) {
       dataRes = JSON.parse(data)
@@ -21,14 +17,10 @@ const getAllUsers = async () => {
 
 const getAllManagers = async () => {
   const url = 'http://localhost:8080/api/manager'
-  const postData = {
-    action: 'getAllManagers'
-  }
   let dataRes
   await $.ajax({
     url: url,
-    type: 'POST',
-    data: postData,
+    type: 'GET',
     async: false,
     success: async function (data) {
       dataRes = JSON.parse(data)
@@ -92,14 +84,10 @@ const getCustomerByEmail = async (url, email) => {
 
 const getUserById = async (id) => {
   const url = `http://localhost:8080/api/user/${id}`
-  const postData = {
-    action: 'getUserById'
-  }
   let dataRes
   await $.ajax({
     url: url,
-    type: 'POST',
-    data: postData,
+    type: 'GET',
     async: false,
     success: async function (data) {
       dataRes = JSON.parse(data)
@@ -139,29 +127,38 @@ const addUser = async (
   email,
   username,
   password,
-  fistName,
+  firstName,
   lastName,
   phone,
   address,
   userType,
 ) => {
-  const urls = `${url}/api/v1/manager`;
-  const data = await fetch(urls, {
-    headers: {
-      "Content-Type": "application/json",
+  const url = `http://localhost:8080/api/user/-1`;
+  const postData = {
+    email,
+    username,
+    password,
+    firstName,
+    lastName,
+    phone,
+    address,
+    userType,
+    action: 'addUser',
+  }
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'POST',
+    data: postData,
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
     },
-    method: "POST",
-    body: JSON.stringify({
-      action: "addManger",
-      fullname: fullname,
-      email: email,
-      password: password,
-      address: address,
-      phone: phone,
-    }),
-  });
-  const datatorender = await data.json();
-  return datatorender;
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
 const deleteManager = async (url = "../..", email) => {
@@ -179,7 +176,7 @@ export {
   changePassword,
   updateCustomer,
   updateManager,
-  addManager,
+  addUser,
   deleteManager,
   getCustomerByEmail,
   getUserById,

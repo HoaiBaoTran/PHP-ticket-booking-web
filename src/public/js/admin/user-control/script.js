@@ -1,10 +1,11 @@
 import {
   getAllUsers,
   getAllManagers,
-  addManager,
+  addUser,
   updateCustomer,
   updateManager,
-} from "../../API/user-api.js";
+} from "../../API/user-api.js"
+
 import { XORDecrypt } from "../../Util/EncryptXOR.js";
 import { RegisterAPI } from "../../API/LoginAPI.js";
 
@@ -89,9 +90,10 @@ $(document).ready(() => {
     let address = $("#ModalAddUser .address").val();
     let phone = $("#ModalAddUser .phone").val();
     let type = $("#ModalAddUser .type").val();
-    addManager("../../..", email, password, fullname, phone, address).then(
+    addUser(email, username, password, firstName, lastName, phone, address, type).then(
       (res) => {
-        if (res.status !== 200)
+        console.log(res)
+        if (!res.status)
           $("#ModalAddUser .message")
             .text("Thêm thất bại")
             .removeClass("success");
