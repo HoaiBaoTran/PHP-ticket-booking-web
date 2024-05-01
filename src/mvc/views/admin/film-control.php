@@ -104,14 +104,12 @@
                     <tr>
                         <th>Mã phim</th>
                         <th>Tên phim</th>
-                        <th>Studio</th>
+                        <th>Thời lượng</th>
                         <th>Thể loại</th>
                         <th>Khởi chiếu</th>
-                        <th>Thời lượng</th>
-                        <th>Ngôn ngữ</th>
                         <th>Đạo diễn</th>
-                        <th>Đánh giá</th>
-                        <th>Mô tả</th>
+                        <th>Nội dung</th>
+                        <th>Hình ảnh</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -410,7 +408,7 @@
             </div>
         </div>
     </div>
-    <script type="text/html" src="../../public/js/admin/film-control/script.js"></script>
+    <script type="module" src="../../public/js/admin/film-control.js"></script>
 </body>
 
 </html>

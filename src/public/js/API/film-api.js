@@ -1,58 +1,83 @@
-const getAllMovies = async (url) => {
-    const data = await fetch(`${url}/api/v1/movie`, {
-        method: "GET",
-    });
-    const datatorender = await data.json();
-    return datatorender;
+const getAllFilms = async () => {
+    const url = 'http://localhost:8080/api/film/-1'
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: async function (data) {
+            dataRes = JSON.parse(data)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
 };
 
-const getHotMovieAPI = async (url) => {
-    const data = await fetch(`${url}/api/v1/movie/hot`, {
-        method: "GET",
-    });
-    const datatorender = await data.json();
-    return datatorender;
+const getFilmById = async (id) => {
+    const url = `http://localhost:8080/api/film/${id}`
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: async function (data) {
+            dataRes = JSON.parse(data)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
 };
 
-const getHotMovieAPIPaginated = async (url) => {
-    const data = await fetch(`${url}/api/v1/movie/hot?page=1`, {
-        method: "GET",
-    });
-    const datatorender = await data.json();
-    return datatorender;
-};
+// const getHotMovieAPI = async (url) => {
+//     const data = await fetch(`${url}/api/v1/movie/hot`, {
+//         method: "GET",
+//     });
+//     const datatorender = await data.json();
+//     return datatorender;
+// };
 
-const getPremiereMoviesByGenreID = async (url, id) => {
-    const data = await fetch(`${url}/api/v1/movie/playing?genre-id=${id}`, {
-        method: "GET",
-    });
-    const datatorender = await data.json();
-    return datatorender;
-};
+// const getHotMovieAPIPaginated = async (url) => {
+//     const data = await fetch(`${url}/api/v1/movie/hot?page=1`, {
+//         method: "GET",
+//     });
+//     const datatorender = await data.json();
+//     return datatorender;
+// };
 
-const getPremiereMovies = async (url) => {
-    const data = await fetch(`${url}/api/v1/movie/playing`, {
-        method: "GET",
-    });
-    const datatorender = await data.json();
-    return datatorender;
-};
+// const getPremiereMoviesByGenreID = async (url, id) => {
+//     const data = await fetch(`${url}/api/v1/movie/playing?genre-id=${id}`, {
+//         method: "GET",
+//     });
+//     const datatorender = await data.json();
+//     return datatorender;
+// };
 
-const getUpcomingMovies = async (url, page = 1) => {
-    const data = await fetch(`${url}/api/v1/movie/up-coming`, {
-        method: "GET",
-    });
-    const datatorender = await data.json();
-    return datatorender;
-};
+// const getPremiereMovies = async (url) => {
+//     const data = await fetch(`${url}/api/v1/movie/playing`, {
+//         method: "GET",
+//     });
+//     const datatorender = await data.json();
+//     return datatorender;
+// };
 
-const getMovieByID = async (url, id) => {
-    const data = await fetch(`${url}/api/v1/movie/${id}`, {
-        method: "GET",
-    });
-    const datatorender = await data.json();
-    return datatorender;
-};
+// const getUpcomingMovies = async (url, page = 1) => {
+//     const data = await fetch(`${url}/api/v1/movie/up-coming`, {
+//         method: "GET",
+//     });
+//     const datatorender = await data.json();
+//     return datatorender;
+// };
+// const getMovieByID = async (url, id) => {
+//     const data = await fetch(`${url}/api/v1/movie/${id}`, {
+//         method: "GET",
+//     });
+//     const datatorender = await data.json();
+//     return datatorender;
+// };
 
 const addMovie = async (
     url = "../..",
@@ -145,13 +170,13 @@ const deleteMovie = async (url, id) => {
 };
 
 export {
-    getAllMovies,
-    getHotMovieAPI,
-    getPremiereMoviesByGenreID,
-    getHotMovieAPIPaginated,
-    getPremiereMovies,
-    getUpcomingMovies,
-    getMovieByID,
+    getAllFilms,
+    // getHotMovieAPI,
+    // getPremiereMoviesByGenreID,
+    // getHotMovieAPIPaginated,
+    // getPremiereMovies,
+    // getUpcomingMovies,
+    getFilmById,
     addMovie,
     updateMovie,
     deleteMovie,

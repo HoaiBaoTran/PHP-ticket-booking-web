@@ -1,8 +1,9 @@
 import {
-  getAllMovies,
-  getHotMovieAPI,
-  getPremiereMovies,
-  getUpcomingMovies,
+  getAllFilms,
+  getFilmById,
+  // getHotMovieAPI,
+  // getPremiereMovies,
+  // getUpcomingMovies,
   addMovie,
   updateMovie,
 } from "../api/film-api.js";
@@ -56,7 +57,7 @@ $(document).ready(() => {
   $(".upcoming-film").click(() =>
     loadUpcomingMovie().then(() => showData(currentData))
   );
-  $(".all-film").click(() => loadAllMovies().then(() => showData(currentData)));
+  $(".all-film").click(() => loadAllFilms().then(() => showData(currentData)));
   $("#btn-search").click(() => {
     let query = $(".input-place input").val().trim().toUpperCase();
     let languageID = $("#select-language").val();
@@ -177,7 +178,7 @@ $(document).ready(() => {
     });
   });
 
-  loadAllMovies().then(() => showData(currentData)); // page load
+  loadAllFilms().then(() => showData(currentData)); // page load
   loadAllGenre();
   loadAllStudio();
   loadAllLanguage();
@@ -189,22 +190,20 @@ function showData(currentData) {
   console.log(currentData);
   let numRow = data.length;
   for (let i = 0; i < numRow; i++) {
-    let genreList = [];
-    data[i].movieGenres.forEach((genre) => {
-      genreList.push(genre);
-    });
+    // let genreList = [];
+    // data[i].movieGenres.forEach((genre) => {
+    //   genreList.push(genre);
+    // });
     table.row
       .add([
-        data[i].movieId,
+        data[i]['film_id'],
         data[i].name,
-        data[i].studio.name,
-        genreList.join(", "),
-        data[i].premiere,
-        data[i].time,
-        data[i].language,
+        data[i].runtime,
+        data[i].type,
+        data[i]['publish_year'],
         data[i].director,
-        data[i].rating,
-        data[i].story,
+        data[i].description,
+        data[i].image,
       ])
       .draw();
   }
@@ -240,12 +239,10 @@ async function loadUpcomingMovie() {
   return currentData;
 }
 
-async function loadAllMovies() {
+async function loadAllFilms() {
   currentData = [];
   let data;
-  data = await getAllMovies("../..");
-  console.log(data);
-
+  data = await getAllFilms();
   for (let i = 0; i < data.data.length; i++) {
     currentData.push(data.data[i]);
   }

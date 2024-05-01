@@ -3,7 +3,12 @@ class FilmModel extends DB
 {
     public function getAllFilms()
     {
-        $sql = "SELECT * FROM film";
+        $sql = "SELECT f.film_id, f.name, f.runtime, f.publish_year, 
+        f.director, f.description,  f.image, GROUP_CONCAT(t.name) as type
+        FROM film f
+        INNER JOIN film_type ft ON ft.film_id = f.film_id
+        INNER JOIN type t ON ft.type_id = t.type_id
+        GROUP BY f.film_id";
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -12,7 +17,8 @@ class FilmModel extends DB
 
     public function getFilmById($id)
     {
-        $sql = "SELECT * FROM film WHERE id = :id";
+        $sql = "SELECT * FROM film JOIN 
+        WHERE film_id = :id";
         $stmt = $this->con->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();

@@ -32,29 +32,29 @@ const getAllManagers = async () => {
   return dataRes
 };
 
-const changePassword = async (url = "../..", id, newPass, oldPass) => {
-  const urls = `${url}/Controller/User/ajax.php`;
-  const data = await fetch(urls, {
-    method: "PUT",
-    body: JSON.stringify({
-      action: "changePassword",
-      id: id,
-      new_password: newPass,
-      old_password: oldPass,
-    }),
-  });
-  const datatorender = await data.json();
-  return datatorender;
-};
+// const changePassword = async (url = "../..", id, newPass, oldPass) => {
+//   const urls = `${url}/Controller/User/ajax.php`;
+//   const data = await fetch(urls, {
+//     method: "PUT",
+//     body: JSON.stringify({
+//       action: "changePassword",
+//       id: id,
+//       new_password: newPass,
+//       old_password: oldPass,
+//     }),
+//   });
+//   const datatorender = await data.json();
+//   return datatorender;
+// };
 
-const getCustomerByEmail = async (url, email) => {
-  const urls = `${url}/api/v1/customer?email=${email}`;
-  const data = await fetch(urls, {
-    method: "GET",
-  });
-  const datatorender = await data.json();
-  return datatorender;
-};
+// const getCustomerByEmail = async (url, email) => {
+//   const urls = `${url}/api/v1/customer?email=${email}`;
+//   const data = await fetch(urls, {
+//     method: "GET",
+//   });
+//   const datatorender = await data.json();
+//   return datatorender;
+// };
 
 const getUserById = async (id) => {
   const url = `http://localhost:8080/api/user/${id}`
