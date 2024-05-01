@@ -164,12 +164,11 @@ const deleteUser = async (id) => {
 };
 
 export {
-  getAllUsers,
   getAllManagers,
-  changePassword,
+  getAllUsers,
   addUser,
   updateUser,
   deleteUser,
-  getCustomerByEmail,
   getUserById,
+  changePassword,
 };

@@ -133,7 +133,7 @@
                         </defs>
                     </svg>
                 </span>
-                <p class="item-description active">Người dùng</p>
+                <p class="item-description">Người dùng</p>
             </div>
         </a>
         <a href="/admin/film">
@@ -150,7 +150,7 @@
                         </defs>
                     </svg>
                 </span>
-                <p class="item-description">Danh sách phim</p>
+                <p class="item-description active">Danh sách phim</p>
             </div>
         </a>
         <a href="/admin/history">
