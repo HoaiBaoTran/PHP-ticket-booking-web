@@ -122,7 +122,9 @@ $(document).ready(() => {
           age,
           rating,
           listGenre,
-          listImage
+          listImage,
+          imageFiles,
+          posterFile
         ).then((res) => {
           if (res.success == false)
             $("#ModalAddUser .message")

@@ -147,8 +147,27 @@ const addFilm = async (
     age,
     rating,
     listGenre,
-    listImage
+    listImage,
+    imageFile,
+    posterFile,
 ) => {
+    const postData = {
+        name: FilmName,
+        director: Director,
+        year: Year,
+        premiere: Premiere,
+        urlTrailer: URLTrailer,
+        time: time,
+        studioId: StudioID,
+        languageId: LanguageID,
+        description: story,
+        age,
+        rating,
+        genres: listGenre,
+        imageFile: imageFile,
+        posterFile, posterFile,
+        imageList: listImage
+    }
     console.log('name: ', FilmName)
     console.log('Director: ', Director)
     console.log('Year: ', Year)
@@ -162,31 +181,23 @@ const addFilm = async (
     console.log('rating: ', rating)
     console.log('listGenre: ', listGenre)
     console.log('listImage: ', listImage)
-    // const urls = `${url}/api/v1/Film`;
-    // const data = await fetch(urls, {
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //         action: "addFilm",
-    //         name: FilmName,
-    //         director: Director,
-    //         year: Year,
-    //         premiere: Premiere,
-    //         urlTrailer: URLTrailer,
-    //         time: Time,
-    //         studioId: StudioID,
-    //         language: LanguageID,
-    //         story: story,
-    //         age: age,
-    //         FilmGenres: listGenre,
-    //         verticalPoster: listImage[0].file,
-    //         horizontalPoster: listImage[1].file,
-    //     }),
-    // });
-    // const datatorender = await data.json();
-    // return datatorender;
+    console.log('imageFile: ', imageFile)
+    console.log('posterFile: ', posterFile)
+    const url = `http://localhost:8080/api/film/-1`
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'POST',
+        data: postData,
+        async: false,
+        success: async function (data) {
+            dataRes = JSON.parse(data)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
 };
 
 const updateFilm = async (

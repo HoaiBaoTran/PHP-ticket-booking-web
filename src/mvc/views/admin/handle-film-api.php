@@ -42,48 +42,87 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         echo $filmModel->getFilmsByCondition($genre, $studio, $language, $id);
         return;
+    } else if ($id == -1) {
+        $name = -1;
+        $director = -1;
+        $year = -1;
+        $premiere = -1;
+        $urlTrailer = -1;
+        $time = -1;
+        $studioId = -1;
+        $languageId = -1;
+        $description = -1;
+        $age = -1;
+        $rating = -1;
+        $genres = -1;
+        $urlPosterVertical = -1;
+        $urlPosterHorizontal = -1;
+        $imageList = -1;
+
+        if (isset($_POST['name'])) {
+            $name = $_POST['name'];
+        }
+        if (isset($_POST['director'])) {
+            $director = $_POST['director'];
+        }
+        if (isset($_POST['year'])) {
+            $year = $_POST['year'];
+        }
+        if (isset($_POST['premiere'])) {
+            $premiere = $_POST['premiere'];
+        }
+        if (isset($_POST['urlTrailer'])) {
+            $urlTrailer = $_POST['urlTrailer'];
+        }
+        if (isset($_POST['time'])) {
+            $time = $_POST['time'];
+        }
+        if (isset($_POST['studioId'])) {
+            $studioId = $_POST['studioId'];
+        }
+        if (isset($_POST['languageId'])) {
+            $languageId = $_POST['languageId'];
+        }
+        if (isset($_POST['description'])) {
+            $description = $_POST['description'];
+        }
+        if (isset($_POST['age'])) {
+            $age = $_POST['age'];
+        }
+        if (isset($_POST['rating'])) {
+            $rating = $_POST['rating'];
+        }
+        if (isset($_POST['genres'])) {
+            $genres = $_POST['genres'];
+        }
+        if (isset($_POST['imageFile'])) {
+            $urlPosterVertical = $_POST['imageFile'];
+        }
+        if (isset($_POST['posterFile'])) {
+            $urlPosterHorizontal = $_POST['posterFile'];
+        }
+        if (isset($_POST['imageList'])) {
+            $imageList = $_POST['imageList'];
+        }
+        echo $filmModel->addFilm(
+            $name,
+            $director,
+            $year,
+            $premiere,
+            $urlTrailer,
+            $time,
+            $studioId,
+            $languageId,
+            $description,
+            $age,
+            $rating,
+            $genres,
+            $urlPosterVertical,
+            $urlPosterHorizontal,
+            $imageList
+        );
     }
 }
-//     if (isset($_POST['action'])) {
-//         $action = $_POST['action'];
-//         switch ($action) {
-//             case 'addUser':
-//                 if (
-//                     isset($_POST['email']) &&
-//                     isset($_POST['username']) &&
-//                     isset($_POST['password']) &&
-//                     isset($_POST['firstName']) &&
-//                     isset($_POST['lastName']) &&
-//                     isset($_POST['address']) &&
-//                     isset($_POST['phone']) &&
-//                     isset($_POST['userType'])
-//                 ) {
-//                     $email = $_POST['email'];
-//                     $username = $_POST['username'];
-//                     $password = $_POST['password'];
-//                     $firstName = $_POST['firstName'];
-//                     $lastName = $_POST['lastName'];
-//                     $address = $_POST['address'];
-//                     $phone = $_POST['phone'];
-//                     $userType = $_POST['userType'];
-//                     echo $filmModel->addUser(
-//                         $username,
-//                         $password,
-//                         $firstName,
-//                         $lastName,
-//                         $email,
-//                         $phone,
-//                         $address,
-//                         $userType
-//                     );
-//                     break;
-//                 }
-//             default:
-//                 echo json_encode(array('error' => 'Unknown action'));
-//                 break;
-//         }
-//     }
-// }
 
 // if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 //     // Read the raw input

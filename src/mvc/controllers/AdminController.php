@@ -10,6 +10,7 @@ class AdminController extends Controller
         ]);
     }
 
+
     function film()
     {
         $filmModel = $this->model("FilmModel");

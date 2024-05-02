@@ -3,8 +3,11 @@ class HomeController extends Controller
 {
     function index()
     {
-        $filmModel = $this->model("FilmModel");
-        $filmModel->getAllFilms();
+        $userModel = $this->model("UserModel");
+
+        $this->view("home/main", [
+            'Users' => $userModel->getAllUsers()
+        ]);
     }
 
     function login()
