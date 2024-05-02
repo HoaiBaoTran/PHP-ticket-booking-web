@@ -1,15 +1,16 @@
 import {
   getAllFilms,
   getFilmById,
-  // getHotMovieAPI,
-  // getPremiereMovies,
-  // getUpcomingMovies,
-  addMovie,
-  updateMovie,
+  getFilmsByCondition,
+  getPremiereFilms,
+  getUpcomingFilms,
+  addFilm,
+  updateFilm,
+  getHotFilms,
 } from "../api/film-api.js";
-import { getAllGenres } from "../api/GenreAPI.js";
-import { getAllStudios } from "../api/StudioAPI.js";
-import { getAllLanguages } from "../api/LanguageAPI.js";
+import { getAllGenres } from "../api/genre-api.js";
+import { getAllStudios } from "../api/studio-api.js";
+import { getAllLanguages } from "../api/language-api.js";
 import { XORDecrypt } from "../util/EncryptXOR.js";
 
 let allData = [];
@@ -50,35 +51,33 @@ $(document).ready(() => {
     $(this).append("<div class=divider-mini></div>");
   });
 
-  $(".hot-film").click(() => loadHotMovie().then(() => showData(currentData)));
+  $(".hot-film").click(() => loadHotFilm().then(() => showData(currentData)));
   $(".premiere-film").click(() =>
-    loadPremiereMovies().then(() => showData(currentData))
+    loadPremiereFilms().then(() => showData(currentData))
   );
   $(".upcoming-film").click(() =>
-    loadUpcomingMovie().then(() => showData(currentData))
+    loadUpcomingFilm().then(() => showData(currentData))
   );
   $(".all-film").click(() => loadAllFilms().then(() => showData(currentData)));
-  $("#btn-search").click(() => {
-    let query = $(".input-place input").val().trim().toUpperCase();
-    let languageID = $("#select-language").val();
-    let genreID = $("#select-genre").val();
-    let studioID = $("#select-studio").val();
-    currentData = allData.filter(
-      (element) =>
-        element.MovieID.search(query) != -1 &&
-        (genreID === "" ||
-          element.ListGenre.find((x) => x.GenreID === genreID)) &&
-        (studioID === "" || element.StudioID === studioID) &&
-        (languageID === "" || element.LanguageID === languageID)
-    );
+  $("#btn-search").click(async () => {
+    const id = $("#search-film-by-id").val().trim();
+    $("#search-film-by-id").val('')
+    const languageID = $("#select-language").val();
+    const genreID = $("#select-genre").val();
+    const studioID = $("#select-studio").val();
+    const data = await getFilmsByCondition(genreID, studioID, languageID, id)
+    currentData = []
+    for (let i = 0; i < data.data.length; i++) {
+      currentData.push(data.data[i]);
+    }
     $(".item-choosing-block .divider-mini").remove();
     $(".search-result").parent().append("<div class=divider-mini></div>");
-    showData();
+    showData(currentData);
   });
 
   // Add form
   $("#btn-add").click(() => {
-    let MovieName = $("#ModalAddUser #name").val().trim();
+    let FilmName = $("#ModalAddUser #name").val().trim();
     let Time = $("#ModalAddUser #time").val().trim();
     let LanguageID = $("#ModalAddUser #language").val().trim();
     let StudioID = $("#ModalAddUser #studio").val();
@@ -86,17 +85,16 @@ $(document).ready(() => {
     let imageFiles = $("#ModalAddUser #image").val();
 
     let Director = $("#ModalAddUser #director").val().trim();
-    let listActor = $("#ModalAddUser #actor").val().trim();
+    let rating = $("#ModalAddUser #rating").val().trim();
 
     let age = $("#ModalAddUser #age").val();
     let listGenre = $("#ModalAddUser #genre").val();
     let story = $("#ModalAddUser #story").val().trim();
-    let Year = $("#ModalAddUser #year").val().trim();
+    let Year = $("#ModalAddUser #year").val();
     let Premiere = $("#ModalAddUser #premiere").val();
     let URLTrailer = $("#ModalAddUser #trailer").val();
     if (!posterFile || !imageFiles) return;
 
-    listActor = listActor.split(",").map((e) => e.trim());
     let listImage = [];
     $("#ModalAddUser #poster")[0]
       .files[0].convertToBase64()
@@ -111,10 +109,8 @@ $(document).ready(() => {
             return { file: e.result, type: 2 };
           })
         );
-        console.log(listImage);
-        addMovie(
-          "../..",
-          MovieName,
+        addFilm(
+          FilmName,
           Director,
           Year,
           Premiere,
@@ -124,7 +120,7 @@ $(document).ready(() => {
           LanguageID,
           story,
           age,
-          listActor,
+          rating,
           listGenre,
           listImage
         ).then((res) => {
@@ -142,8 +138,8 @@ $(document).ready(() => {
 
   // Edit form
   $("#btn-edit").click(() => {
-    let MovieID = $("#ModalEditUser #id").val().trim();
-    let MovieName = $("#ModalEditUser #name").val().trim();
+    let FilmID = $("#ModalEditUser #id").val().trim();
+    let FilmName = $("#ModalEditUser #name").val().trim();
     let Time = $("#ModalEditUser #time").val().trim();
     let LanguageID = $("#ModalEditUser #language").val().trim();
     let StudioID = $("#ModalEditUser #studio").val();
@@ -154,10 +150,10 @@ $(document).ready(() => {
     let Premiere = $("#ModalEditUser #premiere").val();
     let URLTrailer = $("#ModalEditUser #trailer").val();
 
-    updateMovie(
+    updateFilm(
       "../..",
-      MovieID,
-      MovieName,
+      FilmID,
+      FilmName,
       Director,
       Year,
       Premiere,
@@ -187,52 +183,48 @@ $(document).ready(() => {
 function showData(currentData) {
   table.clear().draw();
   let data = currentData;
-  console.log(currentData);
   let numRow = data.length;
   for (let i = 0; i < numRow; i++) {
-    // let genreList = [];
-    // data[i].movieGenres.forEach((genre) => {
-    //   genreList.push(genre);
-    // });
     table.row
       .add([
         data[i]['film_id'],
-        data[i].name,
-        data[i].runtime,
-        data[i].type,
-        data[i]['publish_year'],
-        data[i].director,
-        data[i].description,
-        data[i].image,
+        data[i]['name'],
+        data[i]['time'],
+        data[i]['type'],
+        data[i]['premiere'],
+        data[i]['director'],
+        data[i]['description'],
+        data[i]['language_name'],
+        data[i]['url_poster_vertical'],
+        data[i]['url_trailer']
       ])
       .draw();
   }
 }
 
-async function loadPremiereMovies() {
+async function loadPremiereFilms() {
   currentData = [];
   let data;
-  data = await getPremiereMovies("../..");
+  data = await getPremiereFilms();
   for (let i = 0; i < data.data.length; i++) {
     currentData.push(data.data[i]);
   }
   // allData = [...currentData]
-  console.log(currentData);
   return currentData;
 }
 
-async function loadHotMovie() {
+async function loadHotFilm() {
   currentData = [];
-  let data = await getHotMovieAPI("../..");
+  let data = await getHotFilms();
   for (let i = 0; i < data.data.length; i++) {
     currentData.push(data.data[i]);
   }
   return currentData;
 }
 
-async function loadUpcomingMovie() {
+async function loadUpcomingFilm() {
   currentData = [];
-  let data = await getUpcomingMovies("../..");
+  let data = await getUpcomingFilms();
   for (let i = 0; i < data.data.length; i++) {
     currentData.push(data.data[i]);
   }
@@ -255,13 +247,13 @@ async function loadAllGenre() {
   let genreData = [];
   let data;
   let options = [];
-  data = await getAllGenres("../..", page);
+  data = await getAllGenres();
   genreData.push(...data.data);
   genreData.forEach((element) => {
     $("#select-genre").append(
-      `<option value=${element.id}>${element.name}</option>`
+      `<option value=${element['genre_id']}>${element['genre_name']}</option>`
     );
-    options.push({ id: element.id, name: element.name });
+    options.push({ id: element['genre_id'], name: element['genre_name'] });
   });
   $(".modal #genre").selectize({
     valueField: "id",
@@ -274,10 +266,10 @@ async function loadAllStudio() {
   let data = await getAllStudios("../..");
   data.data.forEach((element) => {
     $("#select-studio").append(
-      `<option value=${element.id}>${element.name}</option>`
+      `<option value=${element['studio_id']}>${element['studio_name']}</option>`
     );
     $(".modal #studio").append(
-      `<option value=${element.id}>${element.name}</option>`
+      `<option value=${element['studio_id']}>${element['studio_name']}</option>`
     );
   });
 }
@@ -286,18 +278,18 @@ async function loadAllLanguage() {
   let data = await getAllLanguages("../..");
   data.data.forEach((element) => {
     $("#select-language").append(
-      `<option value=${element.id}>${element.name}</option>`
+      `<option value=${element['language_id']}>${element['language_name']}</option>`
     );
     $(".modal #language").append(
-      `<option value=${element.id}>${element.name}</option>`
+      `<option value=${element['language_id']}>${element['language_name']}</option>`
     );
   });
 }
 
 function fillEditData(id) {
   let editModal = $("#ModalEditUser");
-  let data = currentData.find((e) => e.movieId === id);
-  editModal.find("#id").val(data.movieId);
+  let data = currentData.find((e) => e.FilmId === id);
+  editModal.find("#id").val(data.FilmId);
   editModal.find("#name").val(data.name);
   editModal.find("#time").val(data.time);
   editModal.find("#language").val(data.language).change();

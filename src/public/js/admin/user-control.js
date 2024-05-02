@@ -123,6 +123,7 @@ $(document).ready(() => {
     let type = $("#ModalAddUser .type").val();
     addUser(email, username, password, firstName, lastName, phone, address, type).then(
       (res) => {
+        console.log(res)
         if (!res.status)
           $("#ModalAddUser .message")
             .text("Thêm thất bại")

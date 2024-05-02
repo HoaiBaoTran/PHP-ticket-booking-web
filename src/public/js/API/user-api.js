@@ -170,5 +170,4 @@ export {
   updateUser,
   deleteUser,
   getUserById,
-  changePassword,
 };

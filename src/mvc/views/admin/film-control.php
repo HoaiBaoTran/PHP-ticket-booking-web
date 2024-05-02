@@ -6,9 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HoaiBao_WebMovie</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" /> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+    <link href="../../public/bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="../../public/bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -18,8 +23,8 @@
     <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css" integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="../.././public/css/admin/film-control/style.css" />
-    <link rel="stylesheet" href="../.././public/css/homepage.css" />
+    <link rel="stylesheet" href="../../public/css/admin/film-control/style.css" />
+    <link rel="stylesheet" href="../../public/css/homepage.css" />
 </head>
 
 <body>
@@ -34,21 +39,21 @@
                 <button class="btn-outline content-type-normal">Thêm file</button>
                 <button class="btn-outline content-type-normal">In danh sách</button>
                 <button class="btn-main content-type-normal" data-bs-toggle="modal" data-bs-target="#ModalAddUser">
-                    + Thêm form
+                    + Thêm phim
                 </button>
             </div>
         </div>
         <div class="divider-container"></div>
         <div class="search-place">
             <div class="input-group rounded input-place me-auto" style="margin-bottom: 0; position: relative">
-                <img src="./public/search.svg" alt="" style="
+                <img src="../../public/images/search.svg" alt="" style="
               position: absolute;
               left: 20px;
               z-index: 10;
               top: 50%;
               transform: translateY(-50%);
             " />
-                <input type="search" class="form-control rounded" placeholder="Tìm kiếm theo id" aria-label="Search" aria-describedby="search-addon" />
+                <input id="search-film-by-id" type="search" class="form-control rounded" placeholder="Tìm kiếm theo id" aria-label="Search" aria-describedby="search-addon" />
             </div>
             <select id="select-language" class="form-select">
                 <option selected value="">Ngôn ngữ</option>
@@ -109,7 +114,9 @@
                         <th>Khởi chiếu</th>
                         <th>Đạo diễn</th>
                         <th>Nội dung</th>
+                        <th>Ngôn ngữ</th>
                         <th>Hình ảnh</th>
+                        <th>Trailer</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -277,8 +284,15 @@
                                     <input type="text" class="form-control" aria-label="Producer_name" aria-describedby="addon-wrapping" id="director" name="Director" />
                                 </div>
                                 <div class="col-6">
-                                    <span class="form-title"> Diễn viên </span>
-                                    <input type="text" class="form-control" aria-label="Actor_Name" aria-describedby="addon-wrapping" id="actor" name="Actor" />
+                                    <span class="form-title"> Đánh giá</span>
+                                    <select class="form-control" aria-label="Rating_Film" aria-describedby="addon-wrapping" name="rating" id="rating">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" aria-label="Actor_Name" aria-describedby="addon-wrapping" id="actor" name="Actor" /> -->
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title">Độ tuổi</span>

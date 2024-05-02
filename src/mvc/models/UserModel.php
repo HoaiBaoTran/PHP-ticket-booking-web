@@ -69,8 +69,8 @@ class UserModel extends DB
         $stmt->bindValue('user_type', (int)$userType, PDO::PARAM_INT);
         $stmt->execute();
 
-        $lastIdInserted = $this->con->lastInsertId();
-        return $this->getUserById($lastIdInserted);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode(array('status' => true, 'data' => $data));
     }
 
     public function updateUser($id, $password, $firstName, $lastName, $phoneNumber, $address, $userType)

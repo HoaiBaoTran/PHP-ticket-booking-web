@@ -1,5 +1,5 @@
 const getAllFilms = async () => {
-    const url = 'http://localhost:8080/api/film/-1'
+    const url = 'http://localhost:8080/api/film/-10'
     let dataRes
     await $.ajax({
         url: url,
@@ -32,56 +32,110 @@ const getFilmById = async (id) => {
     return dataRes
 };
 
-// const getHotMovieAPI = async (url) => {
-//     const data = await fetch(`${url}/api/v1/movie/hot`, {
+const getFilmsByCondition = async (genre, studio, language, id) => {
+    const url = `http://localhost:8080/api/film/-3`
+    let postData
+    if (id != '') {
+        postData = {
+            genre,
+            studio,
+            language,
+            id,
+        }
+    }
+    else {
+        postData = {
+            genre,
+            studio,
+            language,
+        }
+    }
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'POST',
+        data: postData,
+        async: false,
+        success: async function (data) {
+            dataRes = JSON.parse(data)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
+};
+
+const getHotFilms = async () => {
+    const url = `http://localhost:8080/api/film/0`
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: async function (data) {
+            dataRes = JSON.parse(data)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
+};
+
+// const getHotFilmAPIPaginated = async (url) => {
+//     const data = await fetch(`${url}/api/v1/Film/hot?page=1`, {
 //         method: "GET",
 //     });
 //     const datatorender = await data.json();
 //     return datatorender;
 // };
 
-// const getHotMovieAPIPaginated = async (url) => {
-//     const data = await fetch(`${url}/api/v1/movie/hot?page=1`, {
+// const getPremiereFilmsByGenreID = async (url, id) => {
+//     const data = await fetch(`${url}/api/v1/Film/playing?genre-id=${id}`, {
 //         method: "GET",
 //     });
 //     const datatorender = await data.json();
 //     return datatorender;
 // };
 
-// const getPremiereMoviesByGenreID = async (url, id) => {
-//     const data = await fetch(`${url}/api/v1/movie/playing?genre-id=${id}`, {
-//         method: "GET",
-//     });
-//     const datatorender = await data.json();
-//     return datatorender;
-// };
+const getPremiereFilms = async () => {
+    const url = `http://localhost:8080/api/film/-1`
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: async function (data) {
+            dataRes = JSON.parse(data)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
+};
 
-// const getPremiereMovies = async (url) => {
-//     const data = await fetch(`${url}/api/v1/movie/playing`, {
-//         method: "GET",
-//     });
-//     const datatorender = await data.json();
-//     return datatorender;
-// };
+const getUpcomingFilms = async () => {
+    const url = `http://localhost:8080/api/film/-2`
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: async function (data) {
+            dataRes = JSON.parse(data)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
+};
 
-// const getUpcomingMovies = async (url, page = 1) => {
-//     const data = await fetch(`${url}/api/v1/movie/up-coming`, {
-//         method: "GET",
-//     });
-//     const datatorender = await data.json();
-//     return datatorender;
-// };
-// const getMovieByID = async (url, id) => {
-//     const data = await fetch(`${url}/api/v1/movie/${id}`, {
-//         method: "GET",
-//     });
-//     const datatorender = await data.json();
-//     return datatorender;
-// };
 
-const addMovie = async (
-    url = "../..",
-    MovieName,
+const addFilm = async (
+    FilmName,
     Director,
     Year,
     Premiere,
@@ -91,41 +145,54 @@ const addMovie = async (
     LanguageID,
     story,
     age,
-    listActor,
+    rating,
     listGenre,
     listImage
 ) => {
-    const urls = `${url}/api/v1/movie`;
-    const data = await fetch(urls, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({
-            action: "addMovie",
-            name: MovieName,
-            director: Director,
-            year: Year,
-            premiere: Premiere,
-            urlTrailer: URLTrailer,
-            time: Time,
-            studioId: StudioID,
-            language: LanguageID,
-            story: story,
-            age: age,
-            movieGenres: listGenre,
-            verticalPoster: listImage[0].file,
-            horizontalPoster: listImage[1].file,
-        }),
-    });
-    const datatorender = await data.json();
-    return datatorender;
+    console.log('name: ', FilmName)
+    console.log('Director: ', Director)
+    console.log('Year: ', Year)
+    console.log('Premiere: ', Premiere)
+    console.log('URLTrailer: ', URLTrailer)
+    console.log('Time: ', Time)
+    console.log('LanguageID: ', LanguageID)
+    console.log('StudioID: ', StudioID)
+    console.log('story: ', story)
+    console.log('age: ', age)
+    console.log('rating: ', rating)
+    console.log('listGenre: ', listGenre)
+    console.log('listImage: ', listImage)
+    // const urls = `${url}/api/v1/Film`;
+    // const data = await fetch(urls, {
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //         action: "addFilm",
+    //         name: FilmName,
+    //         director: Director,
+    //         year: Year,
+    //         premiere: Premiere,
+    //         urlTrailer: URLTrailer,
+    //         time: Time,
+    //         studioId: StudioID,
+    //         language: LanguageID,
+    //         story: story,
+    //         age: age,
+    //         FilmGenres: listGenre,
+    //         verticalPoster: listImage[0].file,
+    //         horizontalPoster: listImage[1].file,
+    //     }),
+    // });
+    // const datatorender = await data.json();
+    // return datatorender;
 };
 
-const updateMovie = async (
+const updateFilm = async (
     url = "../..",
-    MovieID,
-    MovieName,
+    FilmID,
+    FilmName,
     Director,
     Year,
     Premiere,
@@ -136,16 +203,16 @@ const updateMovie = async (
     story,
     age
 ) => {
-    const urls = `${url}/api/v1/movie/movies/${MovieID}`;
+    const urls = `${url}/api/v1/Film/Films/${FilmID}`;
     const data = await fetch(urls, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            action: "updateMovie",
-            movieId: MovieID,
-            name: MovieName,
+            action: "updateFilm",
+            FilmId: FilmID,
+            name: FilmName,
             director: Director,
             year: Year,
             premiere: Premiere,
@@ -161,8 +228,8 @@ const updateMovie = async (
     return datatorender;
 };
 
-const deleteMovie = async (url, id) => {
-    const data = await fetch(`${url}/api/v1/movie/${id}`, {
+const deleteFilm = async (url, id) => {
+    const data = await fetch(`${url}/api/v1/Film/${id}`, {
         method: "DELETE",
     });
     const datatorender = await data.json();
@@ -171,13 +238,14 @@ const deleteMovie = async (url, id) => {
 
 export {
     getAllFilms,
-    // getHotMovieAPI,
-    // getPremiereMoviesByGenreID,
-    // getHotMovieAPIPaginated,
-    // getPremiereMovies,
-    // getUpcomingMovies,
+    getFilmsByCondition,
+    // getPremiereFilmsByGenreID,
+    // getHotFilmAPIPaginated,
+    getPremiereFilms,
+    getUpcomingFilms,
+    getHotFilms,
     getFilmById,
-    addMovie,
-    updateMovie,
-    deleteMovie,
+    addFilm,
+    updateFilm,
+    deleteFilm,
 };

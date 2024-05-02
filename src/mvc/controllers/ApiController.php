@@ -17,4 +17,19 @@ class ApiController extends Controller
     {
         require_once('./mvc/views/admin/handle-film-api.php');
     }
+
+    function genre()
+    {
+        require_once('./mvc/views/admin/handle-genre-api.php');
+    }
+
+    function studio()
+    {
+        require_once('./mvc/views/admin/handle-studio-api.php');
+    }
+
+    function language()
+    {
+        require_once('./mvc/views/admin/handle-language-api.php');
+    }
 }
