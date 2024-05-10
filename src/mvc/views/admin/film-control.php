@@ -117,6 +117,7 @@
                         <th>Ngôn ngữ</th>
                         <th>Hình ảnh</th>
                         <th>Trailer</th>
+                        <th>Xóa</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -419,6 +420,24 @@
                         <div class="col-4"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalDeleteFilm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa phim</h5>
+                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-white">
+                </div>
+                <div class="message"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-danger" id='btn-delete-film-modal'>Xóa</button>
+                </div>
+
             </div>
         </div>
     </div>

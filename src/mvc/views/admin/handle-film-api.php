@@ -57,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $genres = -1;
         $urlPosterVertical = -1;
         $urlPosterHorizontal = -1;
-        $imageList = -1;
 
         if (isset($_POST['name'])) {
             $name = $_POST['name'];
@@ -95,32 +94,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_POST['genres'])) {
             $genres = $_POST['genres'];
         }
-        if (isset($_POST['imageFile'])) {
-            $urlPosterVertical = $_POST['imageFile'];
+
+        $urlPosterVertical = $_FILES['poster']['name'];
+        $urlPosterHorizontal = $_FILES['image']['name'];
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/public/images/';
+        $posterFile = $_FILES['poster']['tmp_name'];
+        $imageFile = $_FILES['image']['tmp_name'];
+
+        $posterFileName = $uploadDir . basename($_FILES['poster']['name']);
+        $imageFileName = $uploadDir . basename($_FILES['image']['name']);
+
+        if (
+            move_uploaded_file($posterFile, $posterFileName) &&
+            move_uploaded_file($imageFile, $imageFileName)
+        ) {
+            echo $filmModel->addFilm(
+                $name,
+                $director,
+                $year,
+                $premiere,
+                $urlTrailer,
+                $time,
+                $studioId,
+                $languageId,
+                $description,
+                $age,
+                $rating,
+                $genres,
+                $urlPosterVertical,
+                $urlPosterHorizontal
+            );
+        } else {
+            echo "fail";
+            echo $posterFileName = $uploadDir . basename($_FILES['poster']['name']);
+            echo $imageFileName = $uploadDir . basename($_FILES['image']['name']);
         }
-        if (isset($_POST['posterFile'])) {
-            $urlPosterHorizontal = $_POST['posterFile'];
-        }
-        if (isset($_POST['imageList'])) {
-            $imageList = $_POST['imageList'];
-        }
-        echo $filmModel->addFilm(
-            $name,
-            $director,
-            $year,
-            $premiere,
-            $urlTrailer,
-            $time,
-            $studioId,
-            $languageId,
-            $description,
-            $age,
-            $rating,
-            $genres,
-            $urlPosterVertical,
-            $urlPosterHorizontal,
-            $imageList
-        );
     }
 }
 
@@ -160,6 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //     );
 // }
 
-// if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-//     echo $filmModel->deleteUserById($id);
-// }
+if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+    echo $filmModel->deleteFilmById($id);
+}

@@ -7,6 +7,7 @@ import {
   addFilm,
   updateFilm,
   getHotFilms,
+  deleteFilm,
 } from "../api/film-api.js";
 import { getAllGenres } from "../api/genre-api.js";
 import { getAllStudios } from "../api/studio-api.js";
@@ -40,12 +41,51 @@ let table = $("#table-content").DataTable({
 $("#table-content_filter").hide();
 
 $(document).ready(() => {
-  table.on("select", function (e, dt, type, indexes) {
-    if (type === "row") {
-      var data = table.rows(indexes).data();
+  // table.on("select", function (e, dt, type, indexes) {
+  //   if (type === "row") {
+  //     var data = table.rows(indexes).data();
+  //     fillEditData(data[0][0]);
+  //   }
+  // });
+  table.on('click', 'td', function () {
+    const cell = table.cell(this);
+    const rowIndex = cell.index().row;
+    // Delete
+    if ($(this).index() === 10) {
+      const id = table.cell({ row: rowIndex, column: 0 }).data();
+      const name = table.cell({ row: rowIndex, column: 1 }).data();
+      $('#ModalDeleteFilm .modal-body').html(`Bạn có chắc muốn xóa ${name}`)
+      $('#btn-delete-film-modal').attr('data-id', id)
+      $('#ModalDeleteFilm').modal('show')
+    }
+    // Edit
+    else {
+      const data = table.rows(rowIndex).data()
       fillEditData(data[0][0]);
     }
-  });
+  })
+
+  $('#btn-delete-film-modal').click(function () {
+    const id = $(this).attr('data-id')
+    deleteFilm(id).then(
+      (res) => {
+        if (!res.status)
+          $("#ModalDeleteFilm .message")
+            .text("Xóa thất bại")
+            .removeClass("success");
+        else {
+          $("#ModalDeleteFilm .message")
+            .text("Xóa thành công")
+            .addClass("success");
+          $(".all-user").trigger("click");
+        }
+        const delay = setTimeout(() => {
+          $('#ModalDeleteFilm').modal('hide')
+        }, 2000)
+      }
+    )
+  })
+
   $(".item-choosing-block").click(function () {
     $(".item-choosing-block .divider-mini").remove();
     $(this).append("<div class=divider-mini></div>");
@@ -93,6 +133,25 @@ $(document).ready(() => {
     let Year = $("#ModalAddUser #year").val();
     let Premiere = $("#ModalAddUser #premiere").val();
     let URLTrailer = $("#ModalAddUser #trailer").val();
+
+    const formData = new FormData();
+    formData.append('name', FilmName)
+    formData.append('director', Director)
+    formData.append('year', Year)
+    formData.append('premiere', Premiere)
+    formData.append('urlTrailer', URLTrailer)
+    formData.append('time', Time)
+    formData.append('studioId', StudioID)
+    formData.append('languageId', LanguageID)
+    formData.append('description', story)
+    formData.append('age', age)
+    formData.append('rating', rating)
+    formData.append('poster', $("#ModalAddUser #poster")[0].files[0])
+    formData.append('image', $("#ModalAddUser #image")[0].files[0])
+
+    listGenre.forEach(function (value, index) {
+      formData.append('genres[]', value);
+    });
     if (!posterFile || !imageFiles) return;
 
     let listImage = [];
@@ -110,23 +169,9 @@ $(document).ready(() => {
           })
         );
         addFilm(
-          FilmName,
-          Director,
-          Year,
-          Premiere,
-          URLTrailer,
-          Time,
-          StudioID,
-          LanguageID,
-          story,
-          age,
-          rating,
-          listGenre,
-          listImage,
-          imageFiles,
-          posterFile
+          formData
         ).then((res) => {
-          if (res.success == false)
+          if (!res.status)
             $("#ModalAddUser .message")
               .text("Thêm thất bại")
               .removeClass("success");
@@ -198,7 +243,8 @@ function showData(currentData) {
         data[i]['description'],
         data[i]['language_name'],
         data[i]['url_poster_vertical'],
-        data[i]['url_trailer']
+        data[i]['url_trailer'],
+        'Xóa'
       ])
       .draw();
   }

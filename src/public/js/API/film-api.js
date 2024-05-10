@@ -135,61 +135,17 @@ const getUpcomingFilms = async () => {
 
 
 const addFilm = async (
-    FilmName,
-    Director,
-    Year,
-    Premiere,
-    URLTrailer,
-    Time,
-    StudioID,
-    LanguageID,
-    story,
-    age,
-    rating,
-    listGenre,
-    listImage,
-    imageFile,
-    posterFile,
+    formData
 ) => {
-    const postData = {
-        name: FilmName,
-        director: Director,
-        year: Year,
-        premiere: Premiere,
-        urlTrailer: URLTrailer,
-        time: time,
-        studioId: StudioID,
-        languageId: LanguageID,
-        description: story,
-        age,
-        rating,
-        genres: listGenre,
-        imageFile: imageFile,
-        posterFile, posterFile,
-        imageList: listImage
-    }
-    console.log('name: ', FilmName)
-    console.log('Director: ', Director)
-    console.log('Year: ', Year)
-    console.log('Premiere: ', Premiere)
-    console.log('URLTrailer: ', URLTrailer)
-    console.log('Time: ', Time)
-    console.log('LanguageID: ', LanguageID)
-    console.log('StudioID: ', StudioID)
-    console.log('story: ', story)
-    console.log('age: ', age)
-    console.log('rating: ', rating)
-    console.log('listGenre: ', listGenre)
-    console.log('listImage: ', listImage)
-    console.log('imageFile: ', imageFile)
-    console.log('posterFile: ', posterFile)
     const url = `http://localhost:8080/api/film/-1`
     let dataRes
     await $.ajax({
         url: url,
         type: 'POST',
-        data: postData,
+        data: formData,
         async: false,
+        processData: false, // Prevent jQuery from processing the data
+        contentType: false, // Prevent jQuery from setting contentType
         success: async function (data) {
             dataRes = JSON.parse(data)
         },
@@ -201,50 +157,42 @@ const addFilm = async (
 };
 
 const updateFilm = async (
-    url = "../..",
-    FilmID,
-    FilmName,
-    Director,
-    Year,
-    Premiere,
-    URLTrailer,
-    Time,
-    StudioID,
-    LanguageID,
-    story,
-    age
+    formData
 ) => {
-    const urls = `${url}/api/v1/Film/Films/${FilmID}`;
-    const data = await fetch(urls, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
+    const url = `http://localhost:8080/api/film/-1`
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'PUT',
+        data: formData,
+        async: false,
+        processData: false, // Prevent jQuery from processing the data
+        contentType: false, // Prevent jQuery from setting contentType
+        success: async function (data) {
+            dataRes = JSON.parse(data)
         },
-        body: JSON.stringify({
-            action: "updateFilm",
-            FilmId: FilmID,
-            name: FilmName,
-            director: Director,
-            year: Year,
-            premiere: Premiere,
-            urlTrailer: URLTrailer,
-            time: Time,
-            studioId: StudioID,
-            language: LanguageID,
-            story: story,
-            age: age,
-        }),
-    });
-    const datatorender = await data.json();
-    return datatorender;
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
 };
 
-const deleteFilm = async (url, id) => {
-    const data = await fetch(`${url}/api/v1/Film/${id}`, {
-        method: "DELETE",
-    });
-    const datatorender = await data.json();
-    return datatorender;
+const deleteFilm = async (id) => {
+    const url = `http://localhost:8080/api/film/${id}`
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'DELETE',
+        async: false,
+        success: async function (data) {
+            dataRes = JSON.parse(data)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
 };
 
 export {
