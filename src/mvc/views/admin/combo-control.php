@@ -41,7 +41,7 @@
         <div class="divider-container"></div>
         <div class="search-place">
             <div class="input-group rounded input-place me-auto" style="margin-bottom: 0; position: relative">
-                <img src="../../../images/search.svg" alt="" style="
+                <img src="../../public/images/search.svg" alt="" style="
               position: absolute;
               left: 20px;
               z-index: 10;
