@@ -185,40 +185,73 @@ $(document).ready(() => {
 
   // Edit form
   $("#btn-edit").click(() => {
-    let FilmID = $("#ModalEditUser #id").val().trim();
     let FilmName = $("#ModalEditUser #name").val().trim();
     let Time = $("#ModalEditUser #time").val().trim();
     let LanguageID = $("#ModalEditUser #language").val().trim();
     let StudioID = $("#ModalEditUser #studio").val();
+    let posterFile = $("#ModalEditUser #poster").val();
+    let imageFiles = $("#ModalEditUser #image").val();
+
     let Director = $("#ModalEditUser #director").val().trim();
+    let rating = $("#ModalEditUser #rating").val().trim();
+
     let age = $("#ModalEditUser #age").val();
+    let listGenre = $("#ModalEditUser #genre").val();
     let story = $("#ModalEditUser #story").val().trim();
-    let Year = $("#ModalEditUser #year").val().trim();
+    let Year = $("#ModalEditUser #year").val();
     let Premiere = $("#ModalEditUser #premiere").val();
     let URLTrailer = $("#ModalEditUser #trailer").val();
+    const id = $("#ModalEditUser #id").val();
 
-    updateFilm(
-      "../..",
-      FilmID,
-      FilmName,
-      Director,
-      Year,
-      Premiere,
-      URLTrailer,
-      Time,
-      StudioID,
-      LanguageID,
-      story,
-      age
-    ).then((res) => {
-      if (res.success == false)
-        $("#ModalEditUser .message")
-          .text("Sửa thất bại")
-          .removeClass("success");
-      else {
-        $("#ModalEditUser .message").text("Sửa thành công").addClass("success");
-      }
+    const formData = new FormData();
+    formData.append('id', id)
+    formData.append('name', FilmName)
+    formData.append('director', Director)
+    formData.append('year', Year)
+    formData.append('premiere', Premiere)
+    formData.append('urlTrailer', URLTrailer)
+    formData.append('time', Time)
+    formData.append('studioId', StudioID)
+    formData.append('languageId', LanguageID)
+    formData.append('description', story)
+    formData.append('age', age)
+    formData.append('rating', rating)
+    formData.append('isEdit', true)
+    formData.append('poster', $("#ModalEditUser #poster")[0].files[0])
+    formData.append('image', $("#ModalEditUser #image")[0].files[0])
+
+    listGenre.forEach(function (value, index) {
+      formData.append('genres[]', value);
     });
+    if (!posterFile || !imageFiles) return;
+
+    let listImage = [];
+    $("#ModalEditUser #poster")[0]
+      .files[0].convertToBase64()
+      .then((res) => {
+        listImage.push({ file: res.result, type: 1 });
+      });
+    $("#ModalEditUser #image")[0]
+      .files.convertAllToBase64(/\.(png|jpeg|jpg|gif)$/i)
+      .then(function (res) {
+        listImage.push(
+          ...res.map((e) => {
+            return { file: e.result, type: 2 };
+          })
+        );
+        updateFilm(
+          formData
+        ).then((res) => {
+          if (!res.status)
+            $("#ModalEditUser .message")
+              .text("Sửa thất bại")
+              .removeClass("success");
+          else
+            $("#ModalEditUser .message")
+              .text("Sửa thành công")
+              .addClass("success");
+        });
+      });
   });
 
   loadAllFilms().then(() => showData(currentData)); // page load
@@ -336,18 +369,31 @@ async function loadAllLanguage() {
 
 function fillEditData(id) {
   let editModal = $("#ModalEditUser");
-  let data = currentData.find((e) => e.FilmId === id);
-  editModal.find("#id").val(data.FilmId);
+  let data = currentData.find((e) => e['film_id'] === id);
+
+  let premiere = data['premiere'];
+  const arr = premiere.split("-");
+  premiere = ""
+  arr.forEach(item => {
+    premiere += item.length < 2 ? '0' + item : item;
+    premiere += '-'
+  })
+  premiere = premiere.substring(0, premiere.length - 1)
+
+  console.log(data)
+  editModal.find("#id").val(data['film_id']);
   editModal.find("#name").val(data.name);
   editModal.find("#time").val(data.time);
-  editModal.find("#language").val(data.language).change();
-  editModal.find("#studio").val(data.studio).change();
+  editModal.find("#language").val(data.languageId);
+  editModal.find("#studio").val(data.studioId);
   editModal.find("#director").val(data.director);
   editModal.find("#age").val(data.age);
-  editModal.find("#trailer").val(data.urlTrailer);
-  editModal.find("#year").val(data.year);
-  editModal.find("#premiere").val(data.premiere);
-  editModal.find("#story").val(data.story);
+  editModal.find("#trailer").val(data['url_trailer']);
+  editModal.find("#year").val(data['publish_year']);
+  editModal.find("#premiere").val(premiere);
+  editModal.find("#story").val(data.description);
+  editModal.find("#rating").val(data.rating);
+  // editModal.find("#genre-selectized").val(genres)
   editModal.modal("show");
 }
 

@@ -353,7 +353,7 @@
                             <div class="row gy-3 gx-5">
                                 <div class="col-6">
                                     <span class="form-title"> Mã phim </span>
-                                    <input type="text" class="form-control" aria-label="ID_Film" aria-describedby="addon-wrapping" name="id" id="id" disabled />
+                                    <input readonly type="text" class="form-control" aria-label="ID_Film" aria-describedby="addon-wrapping" name="MovieId" id="id" />
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title"> Tên phim </span>
@@ -376,13 +376,35 @@
                                     </select>
                                 </div>
                                 <div class="col-6">
+                                    <span class="form-title"> Link ảnh </span>
+                                    <input type="file" class="form-control" aria-label="image" aria-describedby="addon-wrapping" id="image" multiple name="Image[]" />
+                                </div>
+                                <div class="col-6">
+                                    <span class="form-title"> Link poster </span>
+                                    <input type="file" class="form-control" aria-label="image" aria-describedby="addon-wrapping" id="poster" />
+                                </div>
+                                <div class="col-6">
                                     <span class="form-title"> Đạo Diễn </span>
                                     <input type="text" class="form-control" aria-label="Producer_name" aria-describedby="addon-wrapping" id="director" name="Director" />
                                 </div>
-
+                                <div class="col-6">
+                                    <span class="form-title"> Đánh giá</span>
+                                    <select class="form-control" aria-label="Rating_Film" aria-describedby="addon-wrapping" name="rating" id="rating">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" aria-label="Actor_Name" aria-describedby="addon-wrapping" id="actor" name="Actor" /> -->
+                                </div>
                                 <div class="col-6">
                                     <span class="form-title">Độ tuổi</span>
                                     <input type="text" class="form-control" aria-label="age" aria-describedby="addon-wrapping" id="age" name="age" />
+                                </div>
+                                <div class="col-6">
+                                    <span class="form-title"> Thể loại </span>
+                                    <select class="form-control" aria-label="Type_Film" aria-describedby="addon-wrapping" name="genre" id="genre" multiple></select>
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title"> Mô tả </span>
@@ -437,7 +459,6 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     <button type="button" class="btn btn-danger" id='btn-delete-film-modal'>Xóa</button>
                 </div>
-
             </div>
         </div>
     </div>

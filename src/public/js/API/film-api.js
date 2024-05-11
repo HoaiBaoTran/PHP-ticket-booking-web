@@ -159,11 +159,11 @@ const addFilm = async (
 const updateFilm = async (
     formData
 ) => {
-    const url = `http://localhost:8080/api/film/-1`
+    const url = `http://localhost:8080/api/film/${formData.get('id')}`
     let dataRes
     await $.ajax({
         url: url,
-        type: 'PUT',
+        type: 'POST',
         data: formData,
         async: false,
         processData: false, // Prevent jQuery from processing the data
@@ -175,7 +175,7 @@ const updateFilm = async (
             console.error('Error:', error);
         }
     })
-    return dataRes
+    return dataRes;
 };
 
 const deleteFilm = async (id) => {

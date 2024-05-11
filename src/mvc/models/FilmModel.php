@@ -4,7 +4,9 @@ class FilmModel extends DB
     public function getAllFilms()
     {
         $sql = "SELECT f.film_id, f.name, f.time, f.publish_year, f.director, f.description, l.language_name,
-        f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
+        f.premiere, f.url_poster_vertical, f.url_trailer, f.rating,
+        f.age, GROUP_CONCAT(g.genre_name) as type,
+        f.studio_id as `studioId`, f.language_id as `languageId`, GROUP_CONCAT(g.genre_id) as genres
         FROM film f
         INNER JOIN film_genre fg ON fg.film_id = f.film_id
         INNER JOIN genre g ON fg.genre_id = g.genre_id
@@ -196,14 +198,61 @@ class FilmModel extends DB
         }
     }
 
+    public function updateFilm(
+        $id,
+        $name,
+        $director,
+        $year,
+        $premiere,
+        $urlTrailer,
+        $time,
+        $studioId,
+        $languageId,
+        $description,
+        $age,
+        $rating,
+        $genres,
+        $urlPosterVertical,
+        $urlPosterHorizontal
+    ) {
+        $sql = "UPDATE film SET 
+        `name`=:name,`director`=:director,`publish_year`=:publish_year,
+        `premiere`= :premiere,`url_trailer`=:url_trailer,
+        `url_poster_vertical`= :url_poster_vertical,
+        `url_poster_horizontal`=:url_poster_horizontal,
+        `time`=:time,`description`=:description,
+        `studio_id`=:studio_id,`language_id`=:language_id,
+        `rating`=:rating,`age`=:age
+        WHERE film_id = :id";
+
+        $stmt = $this->con->prepare($sql);
+        $stmt->bindParam('id', $id);
+        $stmt->bindParam('name', $name);
+        $stmt->bindParam('director', $director);
+        $stmt->bindParam('publish_year', $year);
+        $stmt->bindParam('premiere', $premiere);
+        $stmt->bindParam('url_trailer', $urlTrailer);
+        $stmt->bindParam('url_poster_vertical', $urlPosterVertical);
+        $stmt->bindParam('url_poster_horizontal', $urlPosterHorizontal);
+        $stmt->bindParam('time', $time);
+        $stmt->bindParam('description', $description);
+        $stmt->bindParam('studio_id', $studioId);
+        $stmt->bindParam('language_id', $languageId);
+        $stmt->bindParam('rating', $rating);
+        $stmt->bindParam('age', $age);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode(array('status' => true, 'data' => $data));
+    }
+
     public function deleteFilmById($id)
     {
-        $sql = "DELETE FROM film 
-        WHERE film_id = :id";
-        $stmt = $this->con->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        echo json_encode(array('status' => true, 'data' => $data));
+        // $sql = "DELETE FROM film 
+        // WHERE film_id = :id";
+        // $stmt = $this->con->prepare($sql);
+        // $stmt->bindParam(':id', $id);
+        // $stmt->execute();
+        // $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        echo json_encode(array('status' => true, 'data' => 'Xóa thành công'));
     }
 }
