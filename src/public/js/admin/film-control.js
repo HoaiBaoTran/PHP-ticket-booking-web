@@ -77,7 +77,7 @@ $(document).ready(() => {
           $("#ModalDeleteFilm .message")
             .text("Xóa thành công")
             .addClass("success");
-          $(".all-user").trigger("click");
+          $(".all-film").trigger("click");
         }
         const delay = setTimeout(() => {
           $('#ModalDeleteFilm').modal('hide')
