@@ -8,12 +8,21 @@ const getFormatById = async (url, id = 1) => {
   const datatorender = await data.json();
   return datatorender;
 };
-const getAllFormats = async (url) => {
-  const data = await fetch(`${url}/api/v1/format`, {
-    method: "GET",
-  });
-  const datatorender = await data.json();
-  return datatorender;
+const getAllFormats = async () => {
+  const url = `http://localhost:8080/api/format/-1`
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'GET',
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 const getAllFormatsOfMovie = async (url, movieId = 1) => {
   const data = await fetch(

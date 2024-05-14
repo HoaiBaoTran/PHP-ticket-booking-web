@@ -344,7 +344,7 @@ async function loadAllGenre() {
 }
 
 async function loadAllStudio() {
-  let data = await getAllStudios("../..");
+  let data = await getAllStudios();
   data.data.forEach((element) => {
     $("#select-studio").append(
       `<option value=${element['studio_id']}>${element['studio_name']}</option>`

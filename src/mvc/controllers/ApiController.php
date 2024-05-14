@@ -23,6 +23,21 @@ class ApiController extends Controller
         require_once('./mvc/views/admin/handle-api/handle-combo-api.php');
     }
 
+    function format($id)
+    {
+        require_once('./mvc/views/admin/handle-api/handle-format-api.php');
+    }
+
+    function room($id)
+    {
+        require_once('./mvc/views/admin/handle-api/handle-room-api.php');
+    }
+
+    function showtime($id)
+    {
+        require_once('./mvc/views/admin/handle-api/handle-showtime-api.php');
+    }
+
     function genre()
     {
         require_once('./mvc/views/admin/handle-api/handle-genre-api.php');

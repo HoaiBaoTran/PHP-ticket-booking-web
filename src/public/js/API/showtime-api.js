@@ -1,17 +1,35 @@
-const getShowTimeByID = async (url, id) => {
-  const data = await fetch(`${url}/api/v1/showtime/${id}`, {
-    method: "GET",
-  });
-  const datatorender = await data.json();
-  return datatorender;
+const getShowTimeByID = async (id) => {
+  const url = `http://localhost:8080/api/showtime/${id}`
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'GET',
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
-const getAllShowTime = async (url) => {
-  const data = await fetch(`${url}/api/v1/showtime`, {
-    method: "GET",
-  });
-  const datatorender = await data.json();
-  return datatorender;
+const getAllShowTime = async () => {
+  const url = 'http://localhost:8080/api/showtime/-1'
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'GET',
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
 const getAllShowTimesByDate = async (url, date = "2022-10-10") => {
@@ -111,7 +129,6 @@ const removeShowTime = async (url = "../..", movieid) => {
 };
 
 const addShowTime = async (
-  url = "../..",
   Price,
   StartTime,
   MovieID,
@@ -119,31 +136,30 @@ const addShowTime = async (
   RoomID,
   FormatID
 ) => {
-  const urls = `${url}/api/v1/showtime`;
-  console.log({
+  const url = `http://localhost:8080/api/showtime/-1`;
+  const postData = {
     price: Price,
     startTime: StartTime,
-    movieID: MovieID,
+    filmId: MovieID,
     endTime: EndTime,
     roomId: RoomID,
     formatId: FormatID,
-  });
-  const data = await fetch(urls, {
-    headers: {
-      "Content-Type": "application/json",
+  }
+  console.log(postData)
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'POST',
+    data: postData,
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
     },
-    method: "POST",
-    body: JSON.stringify({
-      price: Price,
-      startTime: StartTime,
-      movieID: MovieID,
-      endTime: EndTime,
-      roomId: RoomID,
-      formatId: FormatID,
-    }),
-  });
-  const datatorender = await data.json();
-  return datatorender;
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
 const getShowTimeByDateAndTheater = async (url, date, theaterid) => {

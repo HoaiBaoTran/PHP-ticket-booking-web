@@ -133,6 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         echo $filmModel->getFilmsByCondition($genre, $studio, $language, $id);
         return;
+    } else if ($id == -4) {
+        if (isset($_POST['genreId'])) {
+            $genreId = $_POST['genreId'];
+            echo $filmModel->getFilmByGenreId($genreId);
+        }
     } else if ($id == -1) {
         $name = -1;
         $director = -1;
@@ -188,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $urlPosterVertical = $_FILES['poster']['name'];
         $urlPosterHorizontal = $_FILES['image']['name'];
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/public/images/';
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/public/images/imagesfilms/poster-vertical/';
         $posterFile = $_FILES['poster']['tmp_name'];
         $imageFile = $_FILES['image']['tmp_name'];
 
@@ -222,100 +227,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-
-// if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-//     $name = -1;
-//     $director = -1;
-//     $year = -1;
-//     $premiere = -1;
-//     $urlTrailer = -1;
-//     $time = -1;
-//     $studioId = -1;
-//     $languageId = -1;
-//     $description = -1;
-//     $age = -1;
-//     $rating = -1;
-//     $genres = -1;
-//     $urlPosterVertical = -1;
-//     $urlPosterHorizontal = -1;
-
-//     $data = file_get_contents('php://input');
-//     parse_str($data, $putData);
-
-//     foreach ($putData as $key => $value) {
-//         if ($key == 'name') {
-//             $name = $value;;
-//         }
-//         if ($key == 'director') {
-//             $director = $value;
-//         }
-//         if ($key == 'year') {
-//             $year = $value;
-//         }
-//         if ($key == 'premiere') {
-//             $premiere = $value;
-//         }
-//         if ($key == 'urlTrailer') {
-//             $urlTrailer = $value;
-//         }
-//         if ($key == 'time') {
-//             $time = $value;
-//         }
-//         if ($key == 'studioId') {
-//             $studioId = $value;
-//         }
-//         if ($key == 'languageId') {
-//             $languageId = $value;
-//         }
-//         if ($key == 'description') {
-//             $description = $value;
-//         }
-//         if ($key == 'age') {
-//             $age = $value;
-//         }
-//         if ($key == 'rating') {
-//             $rating = $value;
-//         }
-//         if ($key == 'genres') {
-//             $genres = $value;
-//         }
-//     }
-
-//     $urlPosterVertical = $_FILES['poster']['name'];
-//     $urlPosterHorizontal = $_FILES['image']['name'];
-//     $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/public/images/';
-//     $posterFile = $_FILES['poster']['tmp_name'];
-//     $imageFile = $_FILES['image']['tmp_name'];
-
-//     $posterFileName = $uploadDir . basename($_FILES['poster']['name']);
-//     $imageFileName = $uploadDir . basename($_FILES['image']['name']);
-
-//     if (
-//         move_uploaded_file($posterFile, $posterFileName) &&
-//         move_uploaded_file($imageFile, $imageFileName)
-//     ) {
-//         echo $filmModel->addFilm(
-//             $name,
-//             $director,
-//             $year,
-//             $premiere,
-//             $urlTrailer,
-//             $time,
-//             $studioId,
-//             $languageId,
-//             $description,
-//             $age,
-//             $rating,
-//             $genres,
-//             $urlPosterVertical,
-//             $urlPosterHorizontal
-//         );
-//     } else {
-//         echo "fail";
-//         echo $posterFileName = $uploadDir . basename($_FILES['poster']['name']);
-//         echo $imageFileName = $uploadDir . basename($_FILES['image']['name']);
-//     }
-// }
 
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     echo $filmModel->deleteFilmById($id);

@@ -7,7 +7,7 @@ import {
 import { getAllFilms } from "../api/film-api.js";
 import { getAllRooms } from "../api/room-api.js";
 import { getAllFormats } from "../api/format-api.js";
-import { XORDecrypt } from "../Util/EncryptXOR.js";
+import { XORDecrypt } from "../util/EncryptXOR.js";
 
 let allData = [];
 let currentData = [];
@@ -85,11 +85,10 @@ $(document).ready(() => {
     let StartTime = $("#ModalAddUser .StartTime").val();
     let EndTime = $("#ModalAddUser .EndTime").val();
     let Price = $("#ModalAddUser .Price").val();
-    let MovieID = $("#ModalAddUser .MovieID").val();
-    let RoomID = $("#ModalAddUser .RoomID").val();
+    let MovieID = $("#ModalAddUser .MovieId").val();
+    let RoomID = $("#ModalAddUser .RoomId").val();
     let FormatID = $("#ModalAddUser .FormatName").val();
     addShowTime(
-      "../..",
       Price,
       StartTime,
       MovieID,
@@ -97,13 +96,16 @@ $(document).ready(() => {
       RoomID,
       FormatID
     ).then((res) => {
-      if (res.success == false)
+      if (!res.status)
         $("#ModalAddUser .message")
           .text("Thêm thất bại")
           .removeClass("success");
       else
         $("#ModalAddUser .message").text("Thêm thành công").addClass("success");
       $(".all-showtime").trigger("click");
+      const delay = setTimeout(() => {
+        $("#ModalAddUser .message").text('')
+      }, 2000)
     });
   });
   // Edit form
@@ -141,33 +143,42 @@ async function loadAllShowtime() {
   currentData = [];
   let page = 1;
   let data;
-  data = await getAllShowTime("../..", page);
+  data = await getAllShowTime();
   currentData.push(...data.data);
   allData = [...currentData];
 }
 async function loadAllRoom() {
   let data;
-  data = await getAllRooms("../..");
+  data = await getAllRooms();
   data.data.forEach((element) => {
     $("#select-room").append(
-      `<option value=${element.roomID}>${element.roomID}</option>`
+      `<option value=${element['room_id']}>${element['room_name']}</option>`
+    );
+    $("#select-room-name").append(
+      `<option value=${element['room_id']}>${element['room_name']}</option>`
     );
   });
 }
 async function loadAllFormat() {
   let data;
-  data = await getAllFormats("../..");
+  data = await getAllFormats();
   data.data.forEach((element) => {
     $("#select-format").append(
-      `<option value=${element.formatId}>${element.formatName}</option>`
+      `<option value=${element['format_id']}>${element['format_name']}</option>`
+    );
+    $("#select-format-name").append(
+      `<option value=${element['format_id']}>${element['format_name']}</option>`
     );
   });
 }
 async function loadAllMovie() {
-  const data = await getAllFilms("../..");
+  const data = await getAllFilms();
   data.data.forEach((element) => {
     $("#select-movie").append(
-      `<option value=${element.movieId}>${element.movieId} - ${element.name}</option>`
+      `<option value=${element['film_id']}>${element['film_id']} - ${element.name}</option>`
+    );
+    $("#select-film-name").append(
+      `<option value=${element['film_id']}>${element['film_id']} - ${element.name}</option>`
     );
   });
 }
@@ -190,13 +201,13 @@ function showData() {
   for (let i = 0; i < numRow; i++) {
     table.row
       .add([
-        data[i].showTimeId,
-        data[i].startTime,
-        data[i].endTime,
+        data[i]['showtime_id'],
+        data[i]['start_time'],
+        data[i]['end_time'],
         toVndCurrencyFormat(data[i].price),
-        data[i].movie.movieId,
-        data[i].roomId,
-        data[i].formatId,
+        data[i]['film_id'],
+        data[i]['room_id'],
+        data[i]['format_id'],
       ])
       .draw();
   }

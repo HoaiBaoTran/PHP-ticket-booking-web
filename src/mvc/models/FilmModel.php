@@ -23,7 +23,7 @@ class FilmModel extends DB
     public function getHotFilms()
     {
         $sql = "SELECT f.film_id, f.name, f.time, f.publish_year, f.director, f.description, l.language_name,
-        f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
+        f.age, f.rating, f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
         FROM film f
         INNER JOIN film_genre fg ON fg.film_id = f.film_id
         INNER JOIN genre g ON fg.genre_id = g.genre_id
@@ -41,7 +41,7 @@ class FilmModel extends DB
     public function getPremiereFilms()
     {
         $sql = "SELECT f.film_id, f.name, f.time, f.publish_year, f.director, f.description, l.language_name,
-        f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
+        f.age, f.rating, f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
         FROM film f
         INNER JOIN film_genre fg ON fg.film_id = f.film_id
         INNER JOIN genre g ON fg.genre_id = g.genre_id
@@ -59,7 +59,7 @@ class FilmModel extends DB
     public function getUpComingFilms()
     {
         $sql = "SELECT f.film_id, f.name, f.time, f.publish_year, f.director, f.description, l.language_name,
-        f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
+        f.age, f.rating, f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
         FROM film f
         INNER JOIN film_genre fg ON fg.film_id = f.film_id
         INNER JOIN genre g ON fg.genre_id = g.genre_id
@@ -78,7 +78,7 @@ class FilmModel extends DB
     {
         if ($id != -1) {
             $sql = "SELECT f.film_id, f.name, f.time, f.publish_year, f.director, f.description, l.language_name,
-            f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
+            f.age, f.rating, f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
             FROM film f
             INNER JOIN film_genre fg ON fg.film_id = f.film_id
             INNER JOIN genre g ON fg.genre_id = g.genre_id
@@ -89,7 +89,7 @@ class FilmModel extends DB
             ";
         } else {
             $sql = "SELECT f.film_id, f.name, f.time, f.publish_year, f.director, f.description, l.language_name,
-                    f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
+                    f.age, f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
                     FROM film f
                     INNER JOIN film_genre fg ON fg.film_id = f.film_id
                     INNER JOIN genre g ON fg.genre_id = g.genre_id
@@ -128,11 +128,29 @@ class FilmModel extends DB
         echo json_encode(array('status' => true, 'data' => $data));
     }
 
+    public function getFilmByGenreId($genreId)
+    {
+        $sql = "SELECT f.film_id, f.name, f.time, f.publish_year, f.director, f.description, l.language_name,
+            f.age, f.rating, f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
+            FROM film f
+            INNER JOIN film_genre fg ON fg.film_id = f.film_id
+            INNER JOIN genre g ON fg.genre_id = g.genre_id
+            INNER JOIN studio s ON f.studio_id  = s.studio_id 
+            INNER JOIN `language` l ON f.language_id  = l.language_id 
+            WHERE fg.genre_id = $genreId
+            GROUP BY f.film_id";
+
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode(array('status' => true, 'data' => $data));
+    }
+
 
     public function getFilmById($id)
     {
         $sql = "SELECT f.film_id, f.name, f.time, f.publish_year, f.director, f.description, l.language_name,
-        f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
+        f.age, f.premiere, f.url_poster_vertical, f.url_trailer, GROUP_CONCAT(g.genre_name) as type
         FROM film f
         INNER JOIN film_genre fg ON fg.film_id = f.film_id
         INNER JOIN genre g ON fg.genre_id = g.genre_id

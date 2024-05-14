@@ -33,14 +33,14 @@
                 <button class="btn-outline content-type-normal">Thêm file</button>
                 <button class="btn-outline content-type-normal">In danh sách</button>
                 <button class="btn-main content-type-normal" data-bs-toggle="modal" data-bs-target="#ModalAddUser">
-                    + Thêm form
+                    + Thêm lịch chiếu
                 </button>
             </div>
         </div>
         <div class="divider-container"></div>
         <div class="search-place">
             <div class="input-group rounded input-place me-auto" style="margin-bottom: 0; position: relative">
-                <img src="../../../images/search.svg" alt="" style="
+                <img src="../../public/images/search.svg" alt="" style="
               position: absolute;
               left: 20px;
               z-index: 10;
@@ -58,7 +58,6 @@
             <select id="select-format" class="form-select">
                 <option selected value="">Định dạng</option>
             </select>
-
             <button class="btn-main content-type-normal" id="btn-search">
                 Tìm kiếm
             </button>
@@ -238,15 +237,21 @@
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title"> Mã phim </span>
-                                    <input type="text" class="form-control MovieID" aria-label="MovieName" aria-describedby="addon-wrapping" name="MovieID" />
+                                    <select class="form-select MovieId" aria-label="Language" aria-describedby="addon-wrapping" id="select-film-name" name="MovieId">
+                                        <option value="" selected>Chọn mã phim</option>
+                                    </select>
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title"> Mã phòng chiếu </span>
-                                    <input type="text" class="form-control RoomID" aria-label="RoomID" aria-describedby="addon-wrapping" name="RoomID" />
+                                    <select class="form-select RoomId" aria-label="Language" aria-describedby="addon-wrapping" id="select-room-name" name="RoomId">
+                                        <option value="" selected>Chọn mã phòng chiếu</option>
+                                    </select>
                                 </div>
                                 <div class="col-6">
                                     <span class="form-title"> Định dạng </span>
-                                    <input type="text" class="form-control FormatName" aria-label="FormatName" aria-describedby="addon-wrapping" name="FormatName" />
+                                    <select class="form-select FormatName" aria-label="Language" aria-describedby="addon-wrapping" id="select-format-name" name="FormatName">
+                                        <option value="" selected>Chọn định dạng</option>
+                                    </select>
                                 </div>
                                 <div class="col-6"></div>
                             </div>

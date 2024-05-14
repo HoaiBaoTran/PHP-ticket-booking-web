@@ -15,6 +15,7 @@ const getAllFilms = async () => {
     return dataRes
 };
 
+
 const getFilmById = async (id) => {
     const url = `http://localhost:8080/api/film/${id}`
     let dataRes
@@ -65,6 +66,25 @@ const getFilmsByCondition = async (genre, studio, language, id) => {
     })
     return dataRes
 };
+
+const getPremiereFilmsByGenreID = async (id) => {
+    const url = 'http://localhost:8080/api/film/-4'
+    const postData = { genreId: id }
+    let dataRes
+    await $.ajax({
+        url: url,
+        type: 'GET',
+        data: postData,
+        async: false,
+        success: async function (data) {
+            dataRes = JSON.parse(data)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    })
+    return dataRes
+}
 
 const getHotFilms = async () => {
     const url = `http://localhost:8080/api/film/0`
@@ -198,7 +218,7 @@ const deleteFilm = async (id) => {
 export {
     getAllFilms,
     getFilmsByCondition,
-    // getPremiereFilmsByGenreID,
+    getPremiereFilmsByGenreID,
     // getHotFilmAPIPaginated,
     getPremiereFilms,
     getUpcomingFilms,

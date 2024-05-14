@@ -5,8 +5,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link href="../../public/bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="../../public/bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
     <link href="../../public/bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="../../public/bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 
     <link rel="stylesheet" href="../../public/css/homepage.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -78,7 +81,7 @@
                 <div class="more">
                     <a href="">
                         <span>Xem thêm</span>
-                        <img src="../static/public/arrow_right.svg" alt="" />
+                        <img src="../../public/images/arrow_right.svg" alt="" />
                     </a>
                 </div>
             </div>
@@ -97,7 +100,7 @@
                 <div class="more">
                     <a href="">
                         <span>Xem thêm</span>
-                        <img src="../static/public/arrow_right.svg" alt="" />
+                        <img src="../../public/images/arrow_right.svg" alt="" />
                     </a>
                 </div>
             </div>
@@ -112,7 +115,7 @@
                 <div class="more">
                     <a href="">
                         <span>Xem thêm</span>
-                        <img src="../public/arrow_right.svg" alt="" />
+                        <img src="../../public/images/arrow_right.svg" alt="" />
                     </a>
                 </div>
             </div>
@@ -129,7 +132,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-12" id="footer-first">
                     <div class="footer-logo" style="margin-top: 0">
                         <a href="#">
-                            <p class="logo" style="font-size: 60px">5CT</p>
+                            <p class="logo" style="font-size: 60px">Hoai Bao</p>
                         </a>
                         <p style="font-size: 12px; clear: left">
                             COPYRIGHT © 5CODERCUTE.COM
@@ -168,19 +171,19 @@
                     <div style="margin-top: 20px">
                         <div>
                             <a href="#" class="btn-footer">
-                                <img src="/public/email-multiple-outline.png" />
-                                hoidap@5ct.vn
+                                <img src="../../public/images/email-multiple-outline.png" />
+                                hoidap@hoaibao.vn
                             </a>
                         </div>
                         <div>
                             <a href="#" class="btn-footer">
-                                <img src="/public/phone.png" /> 1900 1008
+                                <img src="../../public/images/phone.png" /> 1900 1008
                             </a>
                         </div>
                         <div class="footer-icon">
-                            <a href="#"> <img src="/public/facebook.png" /> </a>
-                            <a href="#"> <img src="/public/twitter.png" /> </a>
-                            <a href="#"> <img src="/public/google-plus.png" /> </a>
+                            <a href="#"> <img src="../../public/images/facebook.png" /> </a>
+                            <a href="#"> <img src="../../public/images/twitter.png" /> </a>
+                            <a href="#"> <img src="../../public/images/google-plus.png" /> </a>
                         </div>
                     </div>
                 </div>

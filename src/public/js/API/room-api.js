@@ -1,17 +1,40 @@
-const getRoomById = async (url, id = "1") => {
-  const data = await fetch(`${url}/api/v1/room/${id}`, {
-    method: "GET",
-  });
-  const datatorender = await data.json();
-  return datatorender;
+const getRoomById = async (id) => {
+  // const data = await fetch(`${url}/api/v1/room/${id}`, {
+  //   method: "GET",
+  // });
+  // const datatorender = await data.json();
+  // return datatorender;
+  const url = `http://localhost:8080/api/room/${id}`
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'GET',
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
-const getAllRooms = async (url) => {
-  const data = await fetch(`${url}/api/v1/room`, {
-    method: "GET",
-  });
-  const datatorender = await data.json();
-  return datatorender;
+const getAllRooms = async () => {
+  const url = `http://localhost:8080/api/room/-1`
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'GET',
+    async: false,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
 };
 
 const updateRoom = async (
