@@ -5,9 +5,22 @@ class HomeController extends Controller
     {
         $userModel = $this->model("UserModel");
 
-        $this->view("home/main", [
-            'Users' => $userModel->getAllUsers()
-        ]);
+        $this->view("home/main");
+    }
+
+    function movieList()
+    {
+        $this->view("home/movie-list");
+    }
+
+    function order()
+    {
+        $this->view("home/order");
+    }
+
+    function detail()
+    {
+        $this->view("home/detail");
     }
 
     function login()

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link href="../../public/bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="../../public/bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
     <link href="../../public/bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="../../public/bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-
-    <link rel="stylesheet" href="../../public/css/homepage.css" />
+    <link rel="stylesheet" href="../../public/css/detail/index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -22,7 +21,7 @@
     <!-- Nav -->
     <nav class="navbar navbar-expand-md fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <div class="logo">HB</div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto d-flex w-100">
                     <li class="nav-item">
-                        <a class="nav-link" href="/home/movieList">PHIM</a>
+                        <a class="nav-link nav-current" href="/home/movieList">PHIM</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/home/order">LỊCH CHIẾU</a>
@@ -42,39 +41,59 @@
                         <a class="nav-link" href="/home/personalProfile">THÔNG TIN</a>
                     </li>
                     <li class="nav-item" id="login-accout">
-                        <div class="info"></div>
-                        <span class="h6" style="color: white;">
-                            Welcome <span th:text="${fullname}" style="color: rgb(255, 255, 255)(195, 106, 106)"></span>&nbsp;|
+                        <div class="info">
                             <a th:href="@{/logout}">Logout</a>
-                        </span>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            </li>
-            <li class="nav-item visually-hidden" id="signout">
-                <a class="nav-link" href="#">Đăng xuất</a>
-            </li>
-            </ul>
-        </div>
         </div>
     </nav>
-    <!-- Slide phim -->
-    <div id="movie-slide" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#movie-slide" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#movie-slide" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#movie-slide" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <!-- Modal trailer -->
+    <div class="modal fade" id="modal-trailer" tabindex="-1" role="dialog" aria-labelledby="modal-trailer" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="ratio ratio-16x9">
+                        <iframe src="" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="carousel-inner"></div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#movie-slide" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#movie-slide" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+    </div>
+    <!-- Slide phim -->
+    <div id="movie-slide" class="carousel slide" data-bs-ride="carousel container-sm">
+        <div class="carousel-indicators row"></div>
+        <div class="carousel-inner">
+            <button class="carousel-control-prev" type="button" data-bs-target="#movie-slide" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#movie-slide" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="movie-content"></div>
     </div>
     <!--  -->
     <div class="main-container">
+        <div class="section about">
+            <div class="line"></div>
+            <div class="about">
+                <div class="about-content container-fluid">
+                    <div class="row mt-5">
+                        <div id="about-poster" class="col-lg-5 col-md-6 col-sm-12 pt-5"></div>
+                        <div id="about-describe" class="col-lg-6 col-md-6 col-sm-12"></div>
+                        <div class="about-background"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="section ongoing">
             <div class="heading">
                 <h4>Phim đang chiếu</h4>
@@ -94,36 +113,6 @@
             </div>
         </div>
         <br />
-        <div class="section coming">
-            <div class="heading">
-                <h4>Phim sắp chiếu</h4>
-                <div class="more">
-                    <a href="">
-                        <span>Xem thêm</span>
-                        <img src="../../public/images/arrow_right.svg" alt="" />
-                    </a>
-                </div>
-            </div>
-            <div class="line"></div>
-            <div class="cards-container container-fluid">
-                <div class="row g-3 movie-upcoming-container"></div>
-            </div>
-        </div>
-        <div class="section event">
-            <div class="heading">
-                <h4>Sự kiện</h4>
-                <div class="more">
-                    <a href="">
-                        <span>Xem thêm</span>
-                        <img src="../../public/images/arrow_right.svg" alt="" />
-                    </a>
-                </div>
-            </div>
-            <div class="line"></div>
-            <div class="cards-container container-fluid">
-                <div class="row gx-5"></div>
-            </div>
-        </div>
     </div>
     <!-- Footer -->
     <div class="footer">
@@ -132,7 +121,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-12" id="footer-first">
                     <div class="footer-logo" style="margin-top: 0">
                         <a href="#">
-                            <p class="logo" style="font-size: 60px">Hoai Bao</p>
+                            <p class="logo" style="font-size: 60px">5CT</p>
                         </a>
                         <p style="font-size: 12px; clear: left">
                             COPYRIGHT © 5CODERCUTE.COM
@@ -172,7 +161,7 @@
                         <div>
                             <a href="#" class="btn-footer">
                                 <img src="../../public/images/email-multiple-outline.png" />
-                                hoidap@hoaibao.vn
+                                hoidap@5ct.vn
                             </a>
                         </div>
                         <div>
@@ -190,28 +179,10 @@
             </div>
         </div>
     </div>
-    <!-- Modal trailer -->
-    <div class="modal fade" id="modal-trailer" tabindex="-1" role="dialog" aria-labelledby="modal-trailer" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <!-- 16:9 aspect ratio -->
-                    <div class="ratio ratio-16x9">
-                        <iframe src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <script>
         function showTrailer(btn) {
             let url = $(btn)
-                .attr('data-urlTrailer')
-            // .data("urlTrailer")
-            // .replace("https://www.youtube", "https://www.youtube.com/embed");
+                .attr("trailerurl")
             let splitUrl = url.split('watch?v=')
             let newUrl = splitUrl[0] + 'embed/' + splitUrl[1]
             console.log(url)
@@ -221,7 +192,7 @@
             $("#modal-trailer").modal("show");
         }
     </script>
-    <script type="module" src="../../public/js/main/homepage.js"></script>
+    <script type="module" src="../../public/js/main/detail.js"></script>
 </body>
 
 </html>

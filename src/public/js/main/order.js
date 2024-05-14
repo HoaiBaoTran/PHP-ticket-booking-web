@@ -1,4 +1,4 @@
-import { getAllGenres } from "../API/GenreAPI.js";
+import { getAllGenres } from "../api/genre-api.js";
 import {
   getShowTimeByID,
   getAllShowTimesByDate,
@@ -146,16 +146,13 @@ $(document).ready(function () {
             await $(".card-film-item-container").append(htmls);
             let timehtmls = "";
             timehtmls += `
-                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${
-                        data.ShowtimeID
-                      } id=${data.RoomID} movieid=${data.MovieID}>
+                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${data.ShowtimeID
+              } id=${data.RoomID} movieid=${data.MovieID}>
                         <p class="place-to-choose">Room ${RoomData.RoomName}</p>
-                        <p class="time-to-choose">${renderTime[0]}:${
-              renderTime[1]
-            }</p>
-                        <p class="seat-info"><b>${
-                          RoomData.NumberOfSeats - ticketNum
-                        }</b>/${RoomData.NumberOfSeats} Chỗ Ngồi</p>
+                        <p class="time-to-choose">${renderTime[0]}:${renderTime[1]
+              }</p>
+                        <p class="seat-info"><b>${RoomData.NumberOfSeats - ticketNum
+              }</b>/${RoomData.NumberOfSeats} Chỗ Ngồi</p>
                       </div>
                       `;
             const elementsWithMatchingAttrs = document.querySelector(
@@ -181,16 +178,13 @@ $(document).ready(function () {
 
             let timehtmls = "";
             timehtmls += await `
-                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${
-                        data.ShowtimeID
-                      } id=${data.RoomID} movieid=${data.MovieID}>
+                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${data.ShowtimeID
+              } id=${data.RoomID} movieid=${data.MovieID}>
                         <p class="place-to-choose">Room ${RoomData.RoomName}</p>
-                        <p class="time-to-choose">${renderTime[0]}:${
-              renderTime[1]
-            }</p>
-                        <p class="seat-info"><b>${
-                          RoomData.NumberOfSeats - ticketNum
-                        }</b>/${RoomData.NumberOfSeats} Chỗ Ngồi</p>
+                        <p class="time-to-choose">${renderTime[0]}:${renderTime[1]
+              }</p>
+                        <p class="seat-info"><b>${RoomData.NumberOfSeats - ticketNum
+              }</b>/${RoomData.NumberOfSeats} Chỗ Ngồi</p>
                       </div>
                       `;
             await $(elementsWithMatchingAttrs).append(timehtmls);
@@ -364,14 +358,12 @@ $(document).ready(function () {
         await $(".card-film-item-container").append(htmls);
         let timehtmls = "";
         timehtmls += `
-              <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${
-                data.showTimeId
-              } id=${data.roomId} movieid=${data.movie.movieId}>
+              <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${data.showTimeId
+          } id=${data.roomId} movieid=${data.movie.movieId}>
                 <p class="place-to-choose">${RoomData[0].roomName}</p>
                 <p class="time-to-choose">${renderTime[1]}</p>
-                <p class="seat-info"><b>${
-                  RoomData[0].amountSeats - ticketNum
-                }</b>/${RoomData[0].amountSeats} Chỗ Ngồi</p>
+                <p class="seat-info"><b>${RoomData[0].amountSeats - ticketNum
+          }</b>/${RoomData[0].amountSeats} Chỗ Ngồi</p>
               </div>
             `;
         const elementsWithMatchingAttrs = document.querySelector(
@@ -395,14 +387,12 @@ $(document).ready(function () {
         const placetoadd = $(elementsWithMatchingAttrs);
         let timehtmls = "";
         timehtmls += `
-        <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${
-          data.showTimeId
-        } id=${data.roomId} movieid=${data.movieId}>
+        <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${data.showTimeId
+          } id=${data.roomId} movieid=${data.movieId}>
           <p class="place-to-choose">Room ${RoomData.roomName}</p>
           <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
-          <p class="seat-info"><b>${RoomData.amountSeats - ticketNum}</b>/${
-          RoomData.amountSeats
-        } Chỗ Ngồi</p>
+          <p class="seat-info"><b>${RoomData.amountSeats - ticketNum}</b>/${RoomData.amountSeats
+          } Chỗ Ngồi</p>
         </div>
       `;
         await placetoadd.append(timehtmls);

@@ -1,11 +1,11 @@
 import {
-  getMovieByID,
-  getPremiereMovies,
+  getFilmById,
+  getPremiereFilms,
   getPremiereMoviesByGenreID,
-} from "../API/MovieAPI.js";
-import { getAllGenres } from "../API/GenreAPI.js";
-import { XORDecrypt } from "../Util/EncryptXOR.js";
-import { getCustomerByEmail } from "../API/UserAPI.js";
+} from "../api/film-api.js";
+import { getAllGenres } from "../api/genre-api.js";
+import { XORDecrypt } from "../util/EncryptXOR.js";
+import { getCustomerByEmail } from "../api/user-api.js";
 
 $(document).ready(function () {
   $(".navbar-toggler").click(function () {
@@ -18,11 +18,11 @@ $(document).ready(function () {
   });
 });
 
-getPremiereMovies("../..").then((datas) => {
+getPremiereFilms().then((datas) => {
   const cuttingGenre = (data) => {
     let storehtml = "";
-
-    data.flat().forEach((element, index) => {
+    const typeArr = data.split(',');
+    typeArr.forEach((element, index) => {
       if (index == 0) {
         storehtml += `${element}`;
       } else {
@@ -50,7 +50,7 @@ getPremiereMovies("../..").then((datas) => {
             <div class="card-img">
               <div class="card-info">
                 <img
-                  src="../public/Star.svg"
+                  src="../../public/images/Star.svg"
                   alt=""
                   width="22px"
                   height="22px"
@@ -58,24 +58,24 @@ getPremiereMovies("../..").then((datas) => {
                 <div class="rating">${data.rating} / 10</div>
                 <div class="age">${data.age}</div>
                 <div class="date">
-                  <img src="../public/date.svg" alt="" />
+                  <img src="../../public/images/date.svg" alt="" />
                   ${data.premiere}
                 </div>
                 <div class="duration">
-                  <img src="../public/timer.svg" alt="" />
+                  <img src="../../public/images/timer.svg" alt="" />
                   ${timerender}
                 </div>
                 <a href="/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
-                <button class="btn-outline" id=${data.movieId}>Chi tiết</button>
+                <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
                 <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book">
                   ĐẶT VÉ
-                  <img src="../public/Arrow_right_long.svg" alt="" />
+                  <img src="../../public/images/Arrow_right_long.svg" alt="" />
                 </button>
                 </a>
               </div>
-              <img class="poster" src="../public/imagesfilms/poster-vertical/${data.verticalPoster}" alt="" />
+              <img class="poster" src="../../public/images/imagesfilms/poster-vertical/${data['url_poster_vertical']}" alt="" />
             </div>
 
             <div class="movie-genre">
@@ -96,7 +96,7 @@ getPremiereMovies("../..").then((datas) => {
   const MovieIDTaking = sessionStorage.getItem("MovieIDSelected")
     ? sessionStorage.getItem("MovieIDSelected")
     : 1;
-  let data = await getMovieByID("../..", MovieIDTaking);
+  let data = await getFilmById(MovieIDTaking);
   addCarouselInner(data);
   addIntoMovieInfo(data);
   addIntoCasourelIndicator(data);
@@ -113,7 +113,7 @@ const takeAllGenre = async () => {
   genreContainer.append(button);
 
   const getPageNum = async () => {
-    const datas = await getAllGenres("../..");
+    const datas = await getAllGenres();
     return datas.data.length;
   };
 
@@ -123,13 +123,13 @@ const takeAllGenre = async () => {
     return pagenum;
   };
 
-  getAllGenres("../..").then((datas) => {
+  getAllGenres().then((datas) => {
     const datastorender = datas;
     datastorender.data.forEach((data) => {
       const button = $("<button>")
         .addClass("genre-btn-click")
-        .attr("id", data.id)
-        .text(data.name);
+        .attr("id", data['genre_id'])
+        .text(data['genre_name']);
       button.on("click", () => changingBtnOnClick(data.id));
       genreContainer.append(button);
     });
@@ -155,16 +155,13 @@ async function addCarouselInner(data) {
         <div class="carousel-item active">
         <div class="background">
         <div
-          class="movie-preview-img"
-          style="
-            background-image: url('../public/imagesfilms/poster-horizontal/${datatoadd.horizontalPoster}');
-          "
-        >
+          class="movie-preview-img">
+          <img src='../../public/images/imagesfilms/poster-vertical/${datatoadd['url_poster_vertical']}'/>
           <button
             class="play-btn"
             data-toggle="modal"
             data-target="#modal-trailer"
-            data-trailerurl=${datatoadd.urlTrailer}
+            data-trailerurl=${datatoadd['url_trailer']}
             type="button"
             onclick="showTrailer(this)"
           ></button>
@@ -181,9 +178,8 @@ async function addCarouselInner(data) {
     >
       <img
         class="thumbnail-img trailer-thumbnail"
-        src="../public/imagesfilms/poster-horizontal/${
-          datatoadd.horizontalPoster
-        }"
+        src="../../public/images/imagesfilms/poster-horizontal/${datatoadd['url_poster_horizontal']}
+      }"
         alt=""
       />
     </button>`;
@@ -192,9 +188,9 @@ async function addCarouselInner(data) {
       <div class="carousel-item">
         <div class="background">
           <div
-            class="movie-preview-img"
-            style="background-image: url('../public/imagesfilms/poster-horizontal/${datatoadd.horizontalPoster}')"
-          ></div>
+            class="movie-preview-img">
+            <img src='../../public/images/imagesfilms/poster-horizontal/${datatoadd['url_poster_horizontal']}')"/>
+          </div>
         </div>
       </div>`;
     indicatorHTML = `
@@ -204,9 +200,7 @@ async function addCarouselInner(data) {
       data-bs-slide-to="${i}"
       aria-label="Slide ${i + 11}"
     >
-      <img class="thumbnail-img" src="../public/imagesfilms/poster-vertical/${
-        datatoadd.verticalPoster
-      }" alt="" />
+      <img class="thumbnail-img" src="../../public/images/imagesfilms/poster-vertical/${datatoadd['url_poster_vertical']}" alt="" />
     </button>`;
   }
 
@@ -230,7 +224,7 @@ async function addIntoMovieInfo(data) {
   let timerender = toHHMM(datatoadd.time);
   const htmls = `<div class="rating">
       <div class="rating-star">
-        <img src="../public/Star.svg" alt="" />
+        <img src="../../public/images/Star.svg" alt="" />
        ${datatoadd.rating}
       </div>
       <div class="rating-imdb">IMDB 7.2</div>
@@ -248,7 +242,7 @@ async function addIntoMovieInfo(data) {
       <a href="/order" style="text-decoration:None;display:block;width:100%">
         <button class="btn-main btn-book">
         ĐẶT VÉ
-        <img src="../public/Arrow_right_long.svg" alt="" />
+        <img src="../../public/images/Arrow_right_long.svg" alt="" />
       </button></a>
     </div>`;
   $(".movie-content").append(htmls);
@@ -271,7 +265,7 @@ async function addIntoCasourelIndicator(data) {
     >
       <img
         class="thumbnail-img trailer-thumbnail"
-        src="../public/imagesfilms/poster-vertical/${datatoadd.verticalPoster}"
+        src="../../public/images/imagesfilms/poster-vertical/${datatoadd['url_poster_vertical']}"
         alt=""
       />
     </button>`;
@@ -282,7 +276,7 @@ async function addIntoCasourelIndicator(data) {
       data-bs-slide-to="1"
       aria-label="Slide 2"
     >
-      <img class="thumbnail-img" src="../public/imagesfilms/poster-vertical/${datatoadd.verticalPoster}" alt="" />
+      <img class="thumbnail-img" src=".../../public/images/imagesfilms/poster-vertical/${datatoadd.verticalPoster}" alt="" />
     </button>`;
   }
   $(".Casourel-Indicator").append(htmls);
@@ -296,7 +290,7 @@ async function addPosterBody(data) {
   console.log(posterContainer);
   const htmls = `<img
                id="about-poster-img"
-               src="../public/imagesfilms/poster-vertical/${posterContainer}"
+               src="../../public/images/imagesfilms/poster-vertical/${posterContainer}"
              />`;
   $("#about-poster").append(htmls);
 }
@@ -323,7 +317,7 @@ async function addMovieContent(data) {
             <div class="about-line">
               <p>Mô tả</p>
               <p class="about-short">
-                ${datatoadd.story}
+                ${datatoadd.description}
               </p>
             </div>
             <div class="about-line">
@@ -349,11 +343,11 @@ function changingBtnOnClickGetAll(GenreID) {
   const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
   AddingBtnColor.addClass("btn-main");
 
-  getPremiereMovies("../..").then((datas) => {
+  getPremiereFilms().then((datas) => {
     const cuttingGenre = (data) => {
       let storehtml = "";
-
-      data.movieGenres.flat().forEach((element, index) => {
+      const typeArr = data.type.split(',');
+      typeArr.forEach((element, index) => {
         if (index == 0) {
           storehtml += `${element}`;
         } else {
@@ -381,7 +375,7 @@ function changingBtnOnClickGetAll(GenreID) {
             <div class="card-img">
               <div class="card-info">
                 <img
-                  src="../public/Star.svg"
+                  src="../../public/images/Star.svg"
                   alt=""
                   width="22px"
                   height="22px"
@@ -389,24 +383,24 @@ function changingBtnOnClickGetAll(GenreID) {
                 <div class="rating">${data.rating} / 10</div>
                 <div class="age">${data.age}</div>
                 <div class="date">
-                  <img src="../public/date.svg" alt="" />
+                  <img src="../../public/images/date.svg" alt="" />
                   ${data.premiere}
                 </div>
                 <div class="duration">
-                  <img src="../public/timer.svg" alt="" />
+                  <img src="../../public/images/timer.svg" alt="" />
                   ${timerender}
                 </div>
                 <a href="/detail style="text-decoration:None;display:block;width:100%;text-align:center">
-                <button class="btn-outline" id=${data.movieId}>Chi tiết</button>
+                <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
                 <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book">
                   ĐẶT VÉ
-                  <img src="../public/Arrow_right_long.svg" alt="" />
+                  <img src="../../public/images/Arrow_right_long.svg" alt="" />
                 </button>
                 </a>
               </div>
-              <img class="poster" src="../public/imagesfilms/poster-vertical/${data.verticalPoster}" alt="" />
+              <img class="poster" src="../../public/images/imagesfilms/poster-vertical/${data.verticalPoster}" alt="" />
             </div>
 
             <div class="movie-genre">
@@ -434,8 +428,8 @@ function changingBtnOnClick(GenreID) {
   getPremiereMoviesByGenreID("../..", GenreID).then((datas) => {
     const cuttingGenre = (data) => {
       let storehtml = "";
-
-      data.flat().forEach((element, index) => {
+      const typeArr = data.split(',');
+      typeArr.forEach((element, index) => {
         if (index == 0) {
           storehtml += `${element}`;
         } else {
@@ -463,7 +457,7 @@ function changingBtnOnClick(GenreID) {
             <div class="card-img">
               <div class="card-info">
                 <img
-                  src="../public/Star.svg"
+                  src="../../public/images/Star.svg"
                   alt=""
                   width="22px"
                   height="22px"
@@ -471,24 +465,24 @@ function changingBtnOnClick(GenreID) {
                 <div class="rating">${data.rating} / 10</div>
                 <div class="age">${data.age}</div>
                 <div class="date">
-                  <img src="../public/date.svg" alt="" />
+                  <img src="../../public/images/date.svg" alt="" />
                   ${data.premiere}
                 </div>
                 <div class="duration">
-                  <img src="../public/timer.svg" alt="" />
+                  <img src="../../public/images/timer.svg" alt="" />
                   ${timerender}
                 </div>
-                <a href="/details" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/details" style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data.movieId}>Chi tiết</button>
                 </a>
-                <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book">
                   ĐẶT VÉ
-                  <img src="../public/Arrow_right_long.svg" alt="" />
+                  <img src="../../public/images/Arrow_right_long.svg" alt="" />
                 </button>
                 </a>
               </div>
-              <img class="poster" src="../public/imagesfilms/poster-vertical/${data.verticalPoster}" alt="" />
+              <img class="poster" src="../../public/images/imagesfilms/poster-vertical/${data.verticalPoster}" alt="" />
             </div>
 
             <div class="movie-genre">
