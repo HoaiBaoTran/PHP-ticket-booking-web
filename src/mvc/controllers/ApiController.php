@@ -38,6 +38,11 @@ class ApiController extends Controller
         require_once('./mvc/views/admin/handle-api/handle-showtime-api.php');
     }
 
+    function ticket($id)
+    {
+        require_once('./mvc/views/admin/handle-api/handle-ticket-api.php');
+    }
+
     function genre()
     {
         require_once('./mvc/views/admin/handle-api/handle-genre-api.php');
@@ -51,5 +56,10 @@ class ApiController extends Controller
     function language()
     {
         require_once('./mvc/views/admin/handle-api/handle-language-api.php');
+    }
+
+    function theater()
+    {
+        require_once('./mvc/views/admin/handle-api/handle-theater-api.php');
     }
 }

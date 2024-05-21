@@ -1,9 +1,4 @@
 const getRoomById = async (id) => {
-  // const data = await fetch(`${url}/api/v1/room/${id}`, {
-  //   method: "GET",
-  // });
-  // const datatorender = await data.json();
-  // return datatorender;
   const url = `http://localhost:8080/api/room/${id}`
   let dataRes
   await $.ajax({

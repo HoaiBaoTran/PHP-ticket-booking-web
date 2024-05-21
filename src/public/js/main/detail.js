@@ -1,11 +1,11 @@
 import {
   getFilmById,
   getPremiereFilms,
-  getPremiereMoviesByGenreID,
+  getPremiereFilmsByGenreID,
 } from "../api/film-api.js";
 import { getAllGenres } from "../api/genre-api.js";
 import { XORDecrypt } from "../util/EncryptXOR.js";
-import { getCustomerByEmail } from "../api/user-api.js";
+// import { getCustomerByEmail } from "../api/user-api.js";
 
 $(document).ready(function () {
   $(".navbar-toggler").click(function () {
@@ -43,7 +43,7 @@ getPremiereFilms().then((datas) => {
       }
     }
     let timerender = toHHMM(data.time);
-    let genrehtml = await cuttingGenre(data.movieGenres);
+    let genrehtml = await cuttingGenre(data.type);
     let htmls = "";
     htmls +=
       `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
@@ -65,10 +65,10 @@ getPremiereFilms().then((datas) => {
                   <img src="../../public/images/timer.svg" alt="" />
                   ${timerender}
                 </div>
-                <a href="/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
-                <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book">
                   ĐẶT VÉ
                   <img src="../../public/images/Arrow_right_long.svg" alt="" />
@@ -96,6 +96,7 @@ getPremiereFilms().then((datas) => {
   const MovieIDTaking = sessionStorage.getItem("MovieIDSelected")
     ? sessionStorage.getItem("MovieIDSelected")
     : 1;
+  console.log(MovieIDTaking)
   let data = await getFilmById(MovieIDTaking);
   addCarouselInner(data);
   addIntoMovieInfo(data);
@@ -143,7 +144,7 @@ const takeAllGenre = async () => {
 
 // Thêm dữ liệu vào Carousel
 async function addCarouselInner(data) {
-  const datatoadd = data.data[0];
+  const datatoadd = data.data;
   let flag = 0;
   let htmls = ``;
   let indicatorHTML;
@@ -178,8 +179,7 @@ async function addCarouselInner(data) {
     >
       <img
         class="thumbnail-img trailer-thumbnail"
-        src="../../public/images/imagesfilms/poster-horizontal/${datatoadd['url_poster_horizontal']}
-      }"
+        src="../../public/images/imagesfilms/poster-horizontal/${datatoadd['url_poster_horizontal']}"
         alt=""
       />
     </button>`;
@@ -189,7 +189,7 @@ async function addCarouselInner(data) {
         <div class="background">
           <div
             class="movie-preview-img">
-            <img src='../../public/images/imagesfilms/poster-horizontal/${datatoadd['url_poster_horizontal']}')"/>
+            <img src='../../public/images/imagesfilms/poster-horizontal/${datatoadd['url_poster_horizontal']}"/>
           </div>
         </div>
       </div>`;
@@ -220,7 +220,8 @@ async function addIntoMovieInfo(data) {
       return "Invalid time format";
     }
   }
-  const datatoadd = data.data[0];
+  const datatoadd = data.data;
+  console.log(datatoadd)
   let timerender = toHHMM(datatoadd.time);
   const htmls = `<div class="rating">
       <div class="rating-star">
@@ -239,7 +240,7 @@ async function addIntoMovieInfo(data) {
     </div>
 
     <div class="button-container">
-      <a href="/order" style="text-decoration:None;display:block;width:100%">
+      <a href="/home/order" style="text-decoration:None;display:block;width:100%">
         <button class="btn-main btn-book">
         ĐẶT VÉ
         <img src="../../public/images/Arrow_right_long.svg" alt="" />
@@ -249,7 +250,7 @@ async function addIntoMovieInfo(data) {
 }
 // Thêm dữ liệu vào Casourel-Indicator
 async function addIntoCasourelIndicator(data) {
-  const datatoadd = data.data[0];
+  const datatoadd = data.data;
   let flag = 0;
   let htmls = ``;
   // for (const element of datatoadd) {
@@ -284,9 +285,8 @@ async function addIntoCasourelIndicator(data) {
 
 //  Thêm dữ liệu Poster Body(about-poster)
 async function addPosterBody(data) {
-  console.log(data);
-  const datatoadd = data.data[0];
-  const posterContainer = datatoadd.verticalPoster;
+  const datatoadd = data.data;
+  const posterContainer = datatoadd['url_poster_vertical'];
   console.log(posterContainer);
   const htmls = `<img
                id="about-poster-img"
@@ -297,10 +297,11 @@ async function addPosterBody(data) {
 
 //  Thêm dữ liệu vào about-describe
 async function addMovieContent(data) {
-  const datatoadd = data.data[0];
+  const datatoadd = data.data;
   const cuttingGenre = (data) => {
     let storehtml = "";
-    data.movieGenres.flat().forEach((element) => {
+    const typeArr = data.type.split(',');
+    typeArr.forEach((element) => {
       storehtml += `<li>${element}</li>`;
     });
     return storehtml;
@@ -390,10 +391,10 @@ function changingBtnOnClickGetAll(GenreID) {
                   <img src="../../public/images/timer.svg" alt="" />
                   ${timerender}
                 </div>
-                <a href="/detail style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/detail style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
-                <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book">
                   ĐẶT VÉ
                   <img src="../../public/images/Arrow_right_long.svg" alt="" />
@@ -425,7 +426,7 @@ function changingBtnOnClick(GenreID) {
   const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
   AddingBtnColor.addClass("btn-main");
 
-  getPremiereMoviesByGenreID("../..", GenreID).then((datas) => {
+  getPremiereFilmsByGenreID("../..", GenreID).then((datas) => {
     const cuttingGenre = (data) => {
       let storehtml = "";
       const typeArr = data.split(',');

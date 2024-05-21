@@ -79,7 +79,7 @@
                 <div class="col-lg-3 col-md-5 col-sm-12" id="footer-first">
                     <div class="footer-logo" style="margin-top: 0">
                         <a href="#">
-                            <p class="logo" style="font-size: 60px">5CT</p>
+                            <p class="logo" style="font-size: 60px">HB</p>
                         </a>
                         <p style="font-size: 12px; clear: left">
                             COPYRIGHT © 5CODERCUTE.COM
@@ -139,7 +139,7 @@
     </div>
     <script type="module" src="../../public/js/main/order.js"></script>
     <!-- Code injected by Live Server -->
-    <script>
+    <!-- <script>
         // <![CDATA[  <-- For SVG support
         if ("WebSocket" in window) {
             (function() {
@@ -188,7 +188,7 @@
                 "Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading."
             );
         }
-    </script>
+    </script> -->
 </body>
 
 </html>

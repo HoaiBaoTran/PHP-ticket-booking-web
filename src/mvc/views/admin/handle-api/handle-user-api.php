@@ -46,6 +46,10 @@ if (
         $userType
     );
 }
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
+    $email = $_POST['email'];
+    echo $userModel->getUserByEmail($email);
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $data = file_get_contents('php://input');

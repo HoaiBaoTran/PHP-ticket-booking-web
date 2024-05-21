@@ -5,14 +5,14 @@ import {
   getShowTimeByDateAndGenre,
   getShowTimeByMovieandTheater,
   getShowTimeByDateAndTheater,
-} from "../API/ShowTimeAPI.js";
-import { getAllTheaters } from "../API/TheaterAPI.js";
-import { getMovieByID } from "../API/MovieAPI.js";
-import { getRoomById } from "../API/RoomAPI.js";
-import { getFormatById } from "../API/FormatAPI.js";
-import { getAllTicketsByShowTimeId } from "../API/TicketAPI.js";
-import { getCustomerByEmail } from "../API/UserAPI.js";
-import { XORDecrypt } from "../Util/EncryptXOR.js";
+} from "../api/showtime-api.js";
+import { getAllTheaters } from "../api/theater-api.js";
+import { getFilmById } from "../api/film-api.js";
+import { getRoomById } from "../api/room-api.js";
+import { getFormatById } from "../api/format-api.js";
+import { getAllTicketsByShowTimeId } from "../api/ticket-api.js";
+import { getCustomerByEmail } from "../api/user-api.js";
+import { XORDecrypt } from "../util/EncryptXOR.js";
 
 $(document).ready(function () {
   let previousOption = "";
@@ -28,10 +28,10 @@ $(document).ready(function () {
   });
   // Select_Theater_Container
   (async function getAllTheatersFunc() {
-    let datas = await getAllTheaters("../..");
+    let datas = await getAllTheaters();
     let htmls = "";
     for (const data of datas.data) {
-      htmls += `<option value=${data.theaterId}>${data.theaterName}</option>`;
+      htmls += `<option value=${data['theater_id']}>${data.name}</option>`;
     }
     $(".Select_Theater_Container").append(htmls);
   })();
@@ -220,7 +220,7 @@ $(document).ready(function () {
     button.bind("click", () => changingBtnOnClickGetAll("MBTN00001"));
     genreContainer.append(button);
     const setPageNum = async () => {
-      const datas = await getAllGenres("../..");
+      const datas = await getAllGenres();
       return datas.data.length;
     };
 
@@ -232,9 +232,11 @@ $(document).ready(function () {
 
     var pagenum = await updatePageNum();
     for (let page = 1; page <= pagenum; page++) {
-      getAllGenres("../..").then((datas) => {
+      getAllGenres().then((datas) => {
         const datastorender = datas.data;
-        datastorender.forEach((data) => {
+        const typeArr = datastorender.split(',');
+        console.log(datastorender)
+        typeArr.forEach((data) => {
           const button = $("<button>")
             .addClass("genre-btn-click")
             .attr("id", data.id)
@@ -247,12 +249,12 @@ $(document).ready(function () {
   };
   // Lấy phim bởi ID
   const TakingMovieByID = async (ID) => {
-    let data = await getMovieByID("../..", ID);
+    let data = await getFilmById(ID);
     return data;
   };
   // Lấy Room bởi ID
   const TakingRoomByID = async (ID) => {
-    let data = await getRoomById("../..", ID);
+    let data = await getRoomById(ID);
     return data;
   };
   // Lấy ra ShowTime
@@ -281,6 +283,7 @@ $(document).ready(function () {
     );
     const cuttingGenre = (data) => {
       let storehtml = "";
+      console.log(data)
       data.forEach((element) => {
         storehtml += `<span>${element}</span>`;
       });
@@ -289,8 +292,7 @@ $(document).ready(function () {
     for (const data of datas.data) {
       console.log(data);
       let AllTicketContent = await getAllTicketsByShowTimeId(
-        "../..",
-        data.showTimeId
+        data['showtime_id']
       );
       let ticketNum = AllTicketContent.data.length;
       const hasIdFormatPair = await IdFormatContainerCheck.some(

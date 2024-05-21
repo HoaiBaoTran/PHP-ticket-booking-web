@@ -163,6 +163,25 @@ const deleteUser = async (id) => {
   return dataRes
 };
 
+const getCustomerByEmail = async (email) => {
+  const url = `http://localhost:8080/api/user/-2`
+  const postData = { email }
+  let dataRes
+  await $.ajax({
+    url: url,
+    type: 'POST',
+    async: false,
+    data: postData,
+    success: async function (data) {
+      dataRes = JSON.parse(data)
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  })
+  return dataRes
+}
+
 export {
   getAllManagers,
   getAllUsers,
@@ -170,4 +189,5 @@ export {
   updateUser,
   deleteUser,
   getUserById,
+  getCustomerByEmail,
 };

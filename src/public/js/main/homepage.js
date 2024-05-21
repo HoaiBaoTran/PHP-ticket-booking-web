@@ -109,7 +109,7 @@ $(document).ready(function () {
               TRAILER
               <img src="../../public/images/play.svg" alt="" />
             </button>
-            <a href="/detail" style="text-decoration:None">
+            <a href="/home/detail" style="text-decoration:None">
             <button class="btn-main btn-book">
               Chi tiết
               <img src="../../public/images/Arrow_right_long.svg" alt="" />
@@ -130,7 +130,7 @@ $(document).ready(function () {
       await $(".carousel-inner").append(htmls);
       $(".btn-main.btn-book").on("click", () => {
         const dataIdNeededToChoose = $(".carousel-item.active").attr("id");
-        sessionStorage.setItem("FilmIDSelected", dataIdNeededToChoose);
+        sessionStorage.setItem("MovieIDSelected", dataIdNeededToChoose);
       });
     }
   });
@@ -175,10 +175,10 @@ $(document).ready(function () {
                   <img src="../../public/images/timer.svg" alt="" />
                   ${timetoadd}
                 </div>
-                <a href="/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
-                <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book m-auto" style="display:block">
                   ĐẶT VÉ
                 </button>
@@ -196,7 +196,8 @@ $(document).ready(function () {
           </div>`;
       $(".row.g-3.movie-premier-container").append(htmls);
       $(".btn-outline").bind("click", (e) => {
-        sessionStorage.setItem("FilmIDSelected", e.target.id);
+        console.log(e.target.id)
+        sessionStorage.setItem("MovieIDSelected", e.target.id);
       });
     });
   });
@@ -265,10 +266,10 @@ $(document).ready(function () {
                   <img src="../../public/images/timer.svg" alt="" />
                   ${timetoadd}
                 </div>
-                <a href="/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
-                <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book m-auto" style="display:block">
                   ĐẶT VÉ
                 </button>
@@ -338,10 +339,10 @@ $(document).ready(function () {
                   <img src="/public/timer.svg" alt="" />
                   ${timetoadd}
                 </div>
-                <a href="/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data.FilmId}>Chi tiết</button>
                 </a>
-                <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book m-auto" style="display:block">
                   ĐẶT VÉ
                 </button>
@@ -357,7 +358,7 @@ $(document).ready(function () {
           </div>`;
         $(".row.g-3.movie-premier-container").append(htmls);
         $(".btn-outline").bind("click", (e) => {
-          sessionStorage.setItem("FilmIDSelected", e.target.id);
+          sessionStorage.setItem("MovieIDSelected", e.target.id);
         });
       });
     });
@@ -411,10 +412,10 @@ $(document).ready(function () {
                   <img src="../../public/images/timer.svg" alt="" />
                   ${timetoadd}
                 </div>
-                <a href="/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
-                <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book m-auto" style="display:block">
                   ĐẶT VÉ
                 </button>
@@ -430,7 +431,7 @@ $(document).ready(function () {
           </div>`;
         $(".row.g-3.movie-premier-container").append(htmls);
         $(".btn-outline").bind("click", (e) => {
-          sessionStorage.setItem("FilmIDSelected", e.target.id);
+          sessionStorage.setItem("MovieIDSelected", e.target.id);
         });
       });
     });

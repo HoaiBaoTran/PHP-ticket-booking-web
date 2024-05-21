@@ -70,10 +70,10 @@ $(document).ready(function () {
                   <img src="../../public/images/timer.svg" alt="" />
                   ${time}
                 </div>
-                <a href="/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
-                <a href="/order" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/order" style="text-decoration:None;display:block;width:100%;text-align:center">
                   <button class="btn-main btn-book">
                   ĐẶT VÉ
                   <img src="../../public/images/Arrow_right_long.svg" alt="" />
@@ -201,7 +201,7 @@ $(document).ready(function () {
                   <img src="../../public/images/timer.svg" alt="" />
                   ${time}
                 </div>
-                <a href="/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
                 <button class="btn-main">Đặt vé</button>
@@ -271,7 +271,7 @@ $(document).ready(function () {
                   <img src="../../public/images/timer.svg" alt="" />
                   ${timerender}
                 </div>
-                <a href="/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
+                <a href="/home/detail" style="text-decoration:None;display:block;width:100%;text-align:center">
                 <button class="btn-outline" id=${data['film_id']}>Chi tiết</button>
                 </a>
                 <button class="btn-main">Đặt vé</button>
